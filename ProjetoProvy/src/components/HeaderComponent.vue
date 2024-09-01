@@ -20,8 +20,9 @@
   <style scoped>
   header {
     background-color: #42b983;
-    padding: 10px;
+    padding: 5px;
     color: white;
+    width: 100%;
   }
   
   nav ul {

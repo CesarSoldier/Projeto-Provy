@@ -1,16 +1,21 @@
+/* main.css */
+
 @import './base.css';
 
 body {
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
-  max-width: 1280px;
+  max-width: 100%; /* Certifique-se de que o container não exceda a largura da tela */
   margin: 0 auto;
   padding: 2rem;
   display: flex;
+  flex-direction: column; /* Alterar para coluna em telas menores */
   align-items: center;
   justify-content: center;
 }
@@ -29,12 +34,31 @@ a,
   }
 }
 
-#app {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 0 2rem;
+@media (min-width: 769px) {
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
 }
 
 h1, h2, h3 {
   color: var(--color-heading);
+}
+
+/* Responsividade adicional */
+@media (max-width: 768px) {
+  #app {
+    display: block; /* Altere o layout para bloco em telas menores */
+    padding: 1rem; /* Reduza o padding em telas menores */
+  }
+
+  .navigation-buttons {
+    flex-direction: column; /* Empilhe os botões de navegação verticalmente */
+    gap: 10px; /* Ajuste o espaçamento entre os botões */
+  }
+
+  .btn {
+    width: 100%; /* Botões ocupam toda a largura disponível */
+  }
 }

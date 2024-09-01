@@ -1,28 +1,20 @@
+/* base.css */
+
 :root {
   --color-primary: #6DB3F2;
-  /* Azul Claro */
   --color-secondary: #080A23;
-  /* Azul Escuro */
   --color-background: #FAF9F6;
-  /* Cinza Claro */
   --color-text: #FFFFFF;
-  /* Branco */
-
   --color-border: var(--color-secondary);
   --color-heading: var(--color-primary);
   --color-link: #29ABE2;
-  /* Azul do link na tela */
   --color-link-hover: #1D7CAB;
 }
 
-@media (prefers-color-scheme: dark) {
+
+/* Adicione regras para tamanhos de tela menores */
+@media (max-width: 768px) {
   :root {
-    --color-background: #FAF9F6;
-    /* Azul Escuro */
-    --color-text: #FFFFFF;
-    /* Branco */
-    --color-heading: var(--color-primary);
-    --color-link: #29ABE2;
-    --color-link-hover: #1D7CAB;
+    /* Ajuste cores ou outros estilos se necessário */
   }
 }
