@@ -12,9 +12,6 @@
 }
 
 
-/* Adicione regras para tamanhos de tela menores */
+/* Regras para tamanhos de tela menores */
 @media (max-width: 768px) {
-  :root {
-    /* Ajuste cores ou outros estilos se necessário */
-  }
 }

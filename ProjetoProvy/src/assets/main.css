@@ -1,5 +1,3 @@
-/* main.css */
-
 @import './base.css';
 
 body {
@@ -8,14 +6,17 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+  width: 100vw; /* Garante que o body ocupe toda a largura da tela */
+  overflow-x: hidden; /* Remove o overflow horizontal */
 }
 
 #app {
-  max-width: 100%; /* Certifique-se de que o container não exceda a largura da tela */
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%; /* Garante que o container não exceda a largura da tela */
+  width: 100%; /* O container ocupa toda a largura da tela */
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column; /* Alterar para coluna em telas menores */
+  flex-direction: column; /* Altera para coluna em telas menores */
   align-items: center;
   justify-content: center;
 }
@@ -31,34 +32,115 @@ a,
 @media (hover: hover) {
   a:hover {
     background-color: var(--color-link-hover);
+    border-radius: 5px;
   }
 }
 
 @media (min-width: 769px) {
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: flex; /* Corrige o layout para flex */
+    flex-direction: column; /* Coluna para organização vertical */
+    padding: 0; /* Remove o padding para ocupar toda a largura */
   }
 }
 
-h1, h2, h3 {
-  color: var(--color-heading);
+h1 {
+  font-size: 2.4rem; /* Grande para ser o foco */
+  font-weight: 700; /* Peso maior para destaque */
+  color: #3498db; /* Cor escura da paleta */
+  text-align: center; /* Centraliza o título */
+  margin-bottom: 1rem; /* Espaçamento abaixo */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #3498db; /* Cor de destaque mais suave */
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem; /* Espaçamento para o visual da borda */
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #3498db;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase; /* Maiúsculas para destaque */
+  letter-spacing: 1px; /* Espaçamento entre letras */
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #555; 
 }
 
 /* Responsividade adicional */
 @media (max-width: 768px) {
   #app {
-    display: block; /* Altere o layout para bloco em telas menores */
-    padding: 1rem; /* Reduza o padding em telas menores */
+    display: block; /* Altera o layout para bloco em telas menores */
+    padding: 0; /* Remove o padding para ocupar toda a largura */
   }
 
   .navigation-buttons {
-    flex-direction: column; /* Empilhe os botões de navegação verticalmente */
-    gap: 10px; /* Ajuste o espaçamento entre os botões */
+    flex-direction: column; /* Empilha os botões de navegação verticalmente */
+    gap: 10px; /* Ajusta o espaçamento entre os botões */
   }
 
   .btn {
     width: 100%; /* Botões ocupam toda a largura disponível */
   }
+}
+
+#Cadastro, 
+#Login{
+/* Estilos comuns para Login e Cadastro */
+.input-group {
+  margin-bottom: 1.5rem; /* Espaçamento entre os campos de entrada */
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+  background-color: #5a9bd4;
+}
+
+p {
+  margin-top: 1rem;
+}
+
+router-link {
+  color: var(--color-link);
+}
+
+router-link:hover {
+  color: var(--color-link-hover);
+}
+
 }

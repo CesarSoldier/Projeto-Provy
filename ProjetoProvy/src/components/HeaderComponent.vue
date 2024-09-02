@@ -1,7 +1,7 @@
 <template>
     <header>
       <nav>
-        <h1>Serviço XYZ</h1>
+        <h1>Serviços Provy</h1>
         <ul>
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#depoimentos">Depoimentos</a></li>
