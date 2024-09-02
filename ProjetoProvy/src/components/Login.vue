@@ -8,7 +8,7 @@
       </div>
       <div class="input-group">
         <label for="senha">Senha</label>
-        <input type="password" v-model="password" placeholder="********" required />
+        <input type="password" v-model="password" placeholder="**" required />
       </div>
       <button type="submit" class="btn">Login</button>
     </form>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -25,8 +27,22 @@ export default {
     };
   },
   methods: {
-    handleLogin() {
-      console.log('Login com:', this.email, this.password);
+    async handleLogin() {
+      try {
+        const response = await axios.post('http://localhost:3000/login', {
+          email: this.email,
+          password: this.password,
+        });
+        console.log('Login bem-sucedido:', response.data);
+
+        // Armazena o token no localStorage ou em outro local seguro
+        localStorage.setItem('authToken', response.data.token);
+
+        // Redireciona para a página de sucesso
+        this.$router.push('/success');
+      } catch (error) {
+        console.error('Erro ao fazer login:', error.response.data.message);
+      }
     },
   },
 };

@@ -11,27 +11,51 @@
         <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
       </div>
       <div class="input-group">
+        <label for="cpf">CPF</label>
+        <input type="text" v-model="cpf" placeholder="Seu CPF" required />
+      </div>
+      <div class="input-group">
         <label for="senha">Senha</label>
-        <input type="password" v-model="password" placeholder="********" required />
+        <input type="password" v-model="password" placeholder="**" required />
       </div>
       <button type="submit" class="btn">Cadastrar</button>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
     <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       name: '',
       email: '',
+      cpf: '',
       password: '',
+      errorMessage: '', // Adicione uma variável para mensagens de erro
     };
   },
   methods: {
-    handleCadastro() {
-      console.log('Cadastro com:', this.name, this.email, this.password);
+    async handleCadastro() {
+      try {
+        this.errorMessage = ''; // Limpa mensagens de erro anteriores
+        const response = await axios.post('http://localhost:3000/register', {
+          name: this.name,
+          email: this.email,
+          cpf: this.cpf,
+          password: this.password,
+        });
+        console.log('Usuário cadastrado:', response.data);
+
+        // Redireciona para a página de login
+        this.$router.push('/login');
+      } catch (error) {
+        this.errorMessage = error.response.data.message || 'Erro ao cadastrar usuário';
+        console.error('Erro ao cadastrar usuário:', this.errorMessage);
+      }
     },
   },
 };
