@@ -53,4 +53,7 @@ mongoose.connect('mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryW
 })
   .then(() => console.log('Conectado ao MongoDB Atlas!'))
   .catch(err => console.error('Erro ao conectar ao MongoDB Atlas:', err));
-
+  
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+});
