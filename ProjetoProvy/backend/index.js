@@ -1,4 +1,4 @@
-import express from 'express';
+//import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import User from './models/Users.js';
@@ -12,62 +12,33 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoint para cadastro de usuários
-app.post('/register', async (req, res) => {
-    try {
-      const { name, email, cpf, password } = req.body;
-  
-      if (!name || !email || !cpf || !password) {
-        return res.status(400).json({ message: 'Dados faltando' });
-      }
-  
-      // Verifica se o e-mail ou CPF já existe
-      const existingEmail = await User.findOne({ email });
-      const existingCpf = await User.findOne({ cpf });
-  
-      if (existingEmail) {
-        return res.status(400).json({ message: 'E-mail já cadastrado' });
-      }
-      if (existingCpf) {
-        return res.status(400).json({ message: 'CPF já cadastrado' });
-      }
-  
-      // Criptografa a senha
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      const newUser = new User({ name, email, cpf, password: hashedPassword });
-      await newUser.save();
-      res.status(201).json(newUser);
-    } catch (error) {
-      res.status(500).json({ message: 'Erro ao criar usuário', error });
-    }
-  });
+// routes/auth.js
+import express from 'express';
+import Cliente from './models/Cliente.js';
 
-// Endpoint para login
-app.post('/login', async (req, res) => {
+const router = express.Router();
+
+router.post('/register', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email e senha são obrigatórios' });
+    const { name, email, cpf, password } = req.body;
+
+    // Verifica se o email ou CPF já está cadastrado
+    const existingCliente = await Cliente.findOne({ $or: [{ email }, { cpf }] });
+    if (existingCliente) {
+      return res.status(400).json({ message: 'Email ou CPF já cadastrado' });
     }
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: 'Credenciais inválidas' });
-    }
+    const cliente = new Cliente({ name, email, cpf, password });
+    await cliente.save();
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Credenciais inválidas' });
-    }
-
-    const token = jwt.sign({ userId: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
-
-    res.json({ token, user });
+    res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao fazer login', error });
+    res.status(500).json({ message: 'Erro ao cadastrar usuário', error });
   }
 });
+
+export default router;
+
 
 /*mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("Conectado ao MongoDB"))
@@ -80,6 +51,6 @@ mongoose.connect('mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryW
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('Conectado ao MongoDB Atlas!'))
-.catch(err => console.error('Erro ao conectar ao MongoDB Atlas:', err));
+  .then(() => console.log('Conectado ao MongoDB Atlas!'))
+  .catch(err => console.error('Erro ao conectar ao MongoDB Atlas:', err));
 
