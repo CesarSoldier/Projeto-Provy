@@ -4,7 +4,7 @@ import Cliente from './models/Cliente.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('cadastrocliente', async (req, res) => {
   try {
     const { name, email, cpf, password } = req.body;
 
