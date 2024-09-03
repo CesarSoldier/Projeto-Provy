@@ -12,7 +12,7 @@
       </div>
       <button type="submit" class="btn">Login</button>
     </form>
-    <p>Não possui cadastro? <router-link to="/cadastro">Cadastre-se aqui</router-link></p>
+    <p>Não possui cadastro? <router-link to="/">Cadastre-se aqui</router-link></p>
   </div>
 </template>
 

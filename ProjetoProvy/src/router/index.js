@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import CadastroCliente from '../components/CadastroCliente.vue';
 import Login from '../components/Login.vue';
-import Cadastro from '../components/Cadastro.vue';
+import CadastroPrestadordeServico from '../components/CadastroPrestadordeServico.vue';
 
 const routes = [
-  { path: '/', name: 'Home', component: null }, // Esta rota pode permanecer sem um componente específico
+  { path: '/', name: 'Home', component: null }, 
   { path: '/login', name: 'Login', component: Login },
-  { path: '/cadastro', name: 'Cadastro', component: Cadastro },
+  { path: '/cadastrocliente', name: 'Cadastro de Cliente', component: CadastroCliente},
+  { path: '/cadastroprestador', name: 'Cadastro de Prestador de Serviço', component: CadastroPrestadordeServico},
 ];
 
 const router = createRouter({

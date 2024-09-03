@@ -1,22 +1,26 @@
 <template>
   <div class="cadastro-container">
-    <h2>Cadastro</h2>
+    <h2>Cadastro de Prestador de Serviços</h2>
     <form @submit.prevent="handleCadastro">
       <div class="input-group">
-        <label for="nome">Nome</label>
+        <label for="nome">Nome:</label>
         <input type="text" v-model="name" placeholder="Seu Nome" required />
       </div>
       <div class="input-group">
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
         <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
       </div>
       <div class="input-group">
-        <label for="cpf">CPF</label>
+        <label for="cpf">CPF: </label>
         <input type="text" v-model="cpf" placeholder="Seu CPF" required />
       </div>
       <div class="input-group">
-        <label for="senha">Senha</label>
-        <input type="password" v-model="password" placeholder="**" required />
+        <label for="senha">Senha:</label>
+        <input type="password" v-model="password" placeholder="********" required />
+      </div>
+      <div class="input-group">
+        <label for="especialidade">Informe sua especialidade:</label>
+        <input type="especialidade" v-model="especialidade" placeholder ="Ex: Pedreiro, Eletricista, Marceneiro... required"/>
       </div>
       <button type="submit" class="btn">Cadastrar</button>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -61,8 +65,16 @@ export default {
 };
 </script>
 
+
 <style scoped>
-/* Estilos específicos para a página de cadastro */
+.input-group{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 8px;
+  margin-bottom: 1.5rem;
+} 
+
+
 .cadastro-container {
   max-width: 400px;
   margin: 2rem auto;
@@ -78,17 +90,6 @@ export default {
   color: var(--color-primary);
 }
 
-/* Estilos comuns */
-.input-group {
-  margin-bottom: 1.5rem;
-}
-
-.input-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
 .input-group input {
   width: 100%;
   padding: 0.75rem;
@@ -97,32 +98,10 @@ export default {
   box-sizing: border-box;
 }
 
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  margin-top: 1rem;
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
-.btn:hover {
-  background-color: #5a9bd4;
-}
-
-p {
-  margin-top: 1rem;
-}
-
-router-link {
-  color: var(--color-link);
-}
-
-router-link:hover {
-  color: var(--color-link-hover);
-}
 </style>

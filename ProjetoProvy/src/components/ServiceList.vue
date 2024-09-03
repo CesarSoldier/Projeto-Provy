@@ -1,6 +1,6 @@
 <template>
   <section id="servicos">
-    <h2>Nossos Serviços</h2>
+    <h2>Para que posso usar o Provy?</h2>
     <div class="services">
       <div class="service" v-for="(service, index) in services" :key="index">
         <h3>{{ service.title }}</h3>
@@ -16,31 +16,19 @@ export default {
   data() {
     return {
       services: [
-        { title: 'Consultoria', description: 'Descrição do serviço de consultoria.' },
-        { title: 'Desenvolvimento Web', description: 'Descrição do serviço de desenvolvimento web.' },
-        { title: 'Suporte Técnico', description: 'Descrição do serviço de suporte técnico.' },
+        { title: 'Otimização da busca', description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.' },
+        { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
+        { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
       ],
     };
   },
 };
 </script>
 
-<style>
-/* Removido o `scoped` para permitir estilos globais */
-
-#servicos {
-  background-color: #42b983;
-  width: 100vw; /* Usa toda a largura da viewport */
-  margin-top: 50px;
-  margin-bottom: 50px;
-  padding: 40px 0; /* Adiciona espaçamento vertical */
-}
-
+<style scoped>
 .services {
   display: flex;
   justify-content: space-around;
-  max-width: 1200px; /* Limita a largura máxima dos serviços */
-  margin: 0 auto; /* Centraliza o conteúdo */
 }
 
 .service {
@@ -48,7 +36,6 @@ export default {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
-  background-color: white; /* Fundo branco para contraste */
 }
 
 .service h3 {
