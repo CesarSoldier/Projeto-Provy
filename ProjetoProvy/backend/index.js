@@ -74,7 +74,7 @@ mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryW
   .then(() => console.log("Conectado ao MongoDB"))
   .catch((error) => console.log("Erro ao conectar ao MongoDB", error));
 
-app.listen(3000, () => console.log("Servidor rodando na porta 3000"));*/
+app.listen(3000, () => console.log("Servidor rodando na porta 3000"));
 
 
 mongoose.connect('mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {

@@ -46,7 +46,7 @@ export default {
     async handleCadastro() {
       try {
         this.errorMessage = ''; // Limpa mensagens de erro anteriores
-        const response = await axios.post('http://51.20.129.156:3000/registerprovedors', {
+        const response = await axios.post('http://localhost:3000/registerprovedors', {
           name: this.name,
           email: this.email,
           cpf: this.cpf,
