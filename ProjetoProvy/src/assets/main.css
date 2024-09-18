@@ -128,7 +128,7 @@ h4 {
 }
 
 .btn:hover {
-  background-color: #5a9bd4;
+  background-color: #27ae60;
 }
 
 p {
@@ -143,4 +143,40 @@ router-link:hover {
   color: var(--color-link-hover);
 }
 
+}
+
+.footer-navigation {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-navigation .btn {
+  background-color: #3498db;
+}
+
+.footer-navigation .btn:hover {
+  background-color: #27ae60;
+}
+
+/* Caixa estilizada para destaque */
+.highlight-box {
+  background-color: #f8f9fa; /* Cor de fundo clara */
+  border: 2px solid #3498db; /* Borda azul */
+  border-radius: 15px; /* Cantos arredondados */
+  padding: 30px; /* Espaçamento interno */
+  margin-top: 40px; /* Distância do conteúdo acima */
+  text-align: center; /* Centraliza o texto e o botão */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+  max-width: 600px; /* Largura máxima da caixa */
+  margin-left: auto; /* Centraliza horizontalmente */
+  margin-right: auto; /* Centraliza horizontalmente */
+  transform: translateY(-20px);
+}
+
+
+.highlight-box p {
+  font-size: 20px; /* Tamanho maior para o texto */
+  color: #333; /* Cor escura para o texto */
+  margin-bottom: 20px; /* Espaço entre o texto e o botão */
 }

@@ -31,6 +31,16 @@
       <router-view v-else />
     </main>
 
+
+    <!-- Caixa estilizada com o botão de destaque -->
+    <div class="highlight-box">
+      <p>Veja os melhores prestadores de serviços disponíveis na nossa plataforma!</p>
+      <router-link to="/listadeprestadores">
+        <button @click="hideHighlightBox" class="btn highlight-btn">Ver Lista de Prestadores</button>
+      </router-link>
+    </div>
+
+
     <footer-component />
   </div>
 </template>
@@ -50,6 +60,17 @@ export default {
     ServiceList,
     Testimonials,
     FooterComponent,
+  },
+  
+  data() {
+    return {
+      showHighlightBox: true, // Controle para mostrar/ocultar a caixa
+    };
+  },
+  methods: {
+    hideHighlightBox() {
+      this.showHighlightBox = false; // Esconde a caixa ao clicar no botão
+    }
   },
 };
 </script>
@@ -116,5 +137,6 @@ export default {
 p{
   color: black;
 }
+
 </style>
 
