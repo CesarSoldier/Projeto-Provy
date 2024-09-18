@@ -57,33 +57,33 @@ export default {
 <style>
 #app {
   display: flex;
-  flex-direction: column; /* Flexbox para organizar os elementos verticalmente */
-  align-items: center; /* Centraliza os elementos horizontalmente */
-  justify-content: space-between; /* Espaçamento entre os elementos */
-  min-height: 100vh; /* Faz com que o conteúdo ocupe a tela inteira */
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: space-between; 
+  min-height: 100vh; 
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin: 0; /* Remove a margem padrão */
+  margin: 0; 
   background-color: #fffafa;
 
 }
 
 .header-component,
 .footer-component {
-  width: 100%; /* Garante que o cabeçalho e o rodapé ocupem toda a largura */
+  width: 100%; 
 }
 
 .main-content {
-  flex: 1; /* Faz com que o conteúdo principal ocupe o espaço restante */
+  flex: 1; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centraliza o conteúdo principal verticalmente */
-  padding: 20px; /* Espaçamento interno */
-  width: 100%; /* Ocupa toda a largura disponível */
-  max-width: 1200px; /* Limita a largura máxima */
-  box-sizing: border-box; /* Inclui padding e border no tamanho total do elemento */
+  justify-content: center; 
+  padding: 20px; 
+  width: 100%;
+  max-width: 1200px; 
+  box-sizing: border-box; 
 }
 
 .navigation-buttons {

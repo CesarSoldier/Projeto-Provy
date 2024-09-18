@@ -1,7 +1,8 @@
-//import express from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import User from './models/Users.js';
+import Provedor from './models/Provedor.js';
 import bcrypt from 'bcrypt'; // Para hashing de senha
 import jwt from 'jsonwebtoken'; // Para criar tokens de autenticação
 
@@ -18,7 +19,9 @@ import Cliente from './models/Cliente.js';
 
 const router = express.Router();
 
-router.post('/cadastrocliente', async (req, res) => {
+app.use('/cadastrocliente', authRouter);
+
+router.post('/register', async (req, res) => {
   try {
     const { name, email, cpf, password } = req.body;
 
@@ -33,14 +36,41 @@ router.post('/cadastrocliente', async (req, res) => {
 
     res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao cadastrar usuário', error });
+    res.status(500).json({ message: 'Erro ao fazer login', error });
   }
 });
 
-export default router;
+app.post('/registerprovedors', async (req, res) => {
+  try {
+    const { name, email, cpf, password, especialidade } = req.body;
 
+    if (!name || !email || !cpf || !password) {
+      return res.status(400).json({ message: 'Dados faltando' });
+    }
 
-/*mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    // Verifica se o e-mail ou CPF já existe
+    const existingEmail = await User.findOne({ email });
+    const existingCpf = await User.findOne({ cpf });
+
+    if (existingEmail) {
+      return res.status(400).json({ message: 'E-mail já cadastrado' });
+    }
+    if (existingCpf) {
+      return res.status(400).json({ message: 'CPF já cadastrado' });
+    }
+
+    // Criptografa a senha
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newProvedor = new Provedor({ name, email, cpf, password: hashedPassword, especialidade });
+    await newProvedor.save();
+    res.status(201).json(newProvedor);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao criar usuário', error });
+  }
+});
+
+mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("Conectado ao MongoDB"))
   .catch((error) => console.log("Erro ao conectar ao MongoDB", error));
 
@@ -54,6 +84,8 @@ mongoose.connect('mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryW
   .then(() => console.log('Conectado ao MongoDB Atlas!'))
   .catch(err => console.error('Erro ao conectar ao MongoDB Atlas:', err));
 
+
+  
 app.listen(3000, () => {
-   console.log('Servidor rodando na porta 3000');
+    console.log('Servidor rodando na porta 3000');
 });
