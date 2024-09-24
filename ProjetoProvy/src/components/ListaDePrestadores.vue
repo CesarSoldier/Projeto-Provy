@@ -164,7 +164,6 @@ export default {
 .search {
     display: flex;
 }
-
 .search .Pesquisar {
     padding: 8px;
     border: 2px solid #3498db;

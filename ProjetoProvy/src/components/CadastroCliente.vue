@@ -80,7 +80,7 @@ export default {
 
 .cadastro-container h2 {
   margin-bottom: 1rem;
-  color: var(--color-primary);
+  color: blue;
 }
 
 .input-group input {
