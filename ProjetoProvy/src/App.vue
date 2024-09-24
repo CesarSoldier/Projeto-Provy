@@ -2,6 +2,32 @@
   <div id="app">
     <header-component />
 
+    <header>
+            <h1>Projeto Provy</h1>
+            <p>Plataforma para solução do seu problema</p>
+        </header>
+
+        <div class="home-container">
+          <router-link to="/">
+        <button class="home">Home</button>
+      </router-link>
+      </div>
+
+    <div class="navigation-buttons">
+      <router-link to="/cadastrocliente">
+        <button class="btn">Cadastro de Cliente</button>
+      </router-link>
+      <router-link to="/cadastroprestador">
+        <button class="btn">Cadastro de Prestador de Serviço</button>
+      </router-link>
+      <p>Já possui uma conta?</p> 
+      <div class="button-login">
+     <router-link to="/login"> 
+      <button class="btn">Faça o login</button>
+    </router-link>
+     </div>
+    </div>
+
     <main class="main-content">
       <div v-if="$route.path === '/'">
         <service-list />
@@ -66,11 +92,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 0; 
-  background-color: #fffafa;
-
+  background-image: url("../Imagens/Provy (1).png");
+  background-size:cover;
 }
 
-.header-component,
+header h1{
+  color: blue;
+}
 .footer-component {
   width: 100%; 
 }
@@ -95,27 +123,33 @@ export default {
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
-}
 
+}
 
 .btn {
   padding: 10px 20px;
-  background-color: #3498db;
-  color: white;
+  background-color: white;
+  color: blue;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #2980b9;
 }
 
 p{
-  color: black;
+  color: blue;
+  font-weight: bold;
+}
+
+.home-container button:hover{
+  color: blue;
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.5s;
 }
 
 </style>
