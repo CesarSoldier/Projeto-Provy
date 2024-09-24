@@ -3,11 +3,10 @@
 body {
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  width: 100vw; /* Garante que o body ocupe toda a largura da tela */
-  overflow-x: hidden; /* Remove o overflow horizontal */
+  width: 100vw;
+  overflow-x: hidden; 
 }
 
 #app {
@@ -45,12 +44,13 @@ a,
 }
 
 h1 {
-  font-size: 2.4rem; /* Grande para ser o foco */
-  font-weight: 700; /* Peso maior para destaque */
-  color: #3498db; /* Cor escura da paleta */
-  text-align: center; /* Centraliza o título */
-  margin-bottom: 1rem; /* Espaçamento abaixo */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2.4rem; 
+  font-weight: 700; 
+  color: #3498db; 
+  text-align: center; 
+  margin-bottom: 1rem; 
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
 }
 
 h2 {

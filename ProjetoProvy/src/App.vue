@@ -142,6 +142,17 @@ p{
   font-weight: bold;
 }
 
+.home{
+  padding: 10px 20px;
+  background-color: white;
+  color: blue;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
 .home-container button:hover{
   color: blue;
   padding: 10px 30px;
