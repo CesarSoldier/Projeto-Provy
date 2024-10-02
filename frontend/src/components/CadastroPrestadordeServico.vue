@@ -39,13 +39,13 @@ export default {
       email: '',
       cpf: '',
       password: '',
-      errorMessage: '', // Adicione uma variável para mensagens de erro
+      errorMessage: '', 
     };
   },
   methods: {
     async handleCadastro() {
       try {
-        this.errorMessage = ''; // Limpa mensagens de erro anteriores
+        this.errorMessage = ''; 
         const response = await axios.post('http://localhost:3000/registerprovedors', {
           name: this.name,
           email: this.email,
@@ -88,7 +88,7 @@ export default {
 
 .cadastro-container h2 {
   margin-bottom: 1rem;
-  color: var(--color-primary);
+  color: blue;
 }
 
 .input-group input {
@@ -103,6 +103,24 @@ export default {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
+}
+
+.btn {
+  background-color: white; 
+  color: blue; 
+  border: 2px solid blue; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  font-size: 1rem; 
+  font-weight: bold; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.btn:hover {
+  background-color: #2980b9; 
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 </style>

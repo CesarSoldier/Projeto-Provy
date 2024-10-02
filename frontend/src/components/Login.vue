@@ -62,7 +62,7 @@ export default {
 
 .login-container h2 {
   margin-bottom: 1rem;
-  color: var(--color-primary);
+  color: blue;
 }
 
 /* Estilos comuns */
