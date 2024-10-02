@@ -29,7 +29,7 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const backendUrl = process.env.VUE_APP_BACKEND_URL;
+        const backendUrl = process.env.VITE_APP_BACKEND_URL;
 
         const response = await axios.post(`${backendUrl}/login`, {
           email: this.email,

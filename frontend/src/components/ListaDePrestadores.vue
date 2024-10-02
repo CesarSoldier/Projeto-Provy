@@ -19,7 +19,7 @@
   methods: {
     async buscarPrestadores() {
       try {
-        const backendUrl = process.env.VUE_APP_BACKEND_URL; // Usa a variável de ambiente
+        const backendUrl = process.env.VITE_APP_BACKEND_URL; 
         const response = await fetch(`${backendUrl}/provedores`); // Concatena a URL base com o endpoint
         const data = await response.json();
         this.prestadores = data;
@@ -28,7 +28,7 @@
       }
     }
   },
-  created() {
+  mounted() {
     this.buscarPrestadores();
   }
 };
