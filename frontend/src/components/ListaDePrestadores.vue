@@ -19,7 +19,7 @@
     methods: {
       async buscarPrestadores() {
         try {
-          const response = await fetch('http://localhost:3000/provedores');
+          const response = await fetch('http://13.61.25.37:3000/provedores');
           const data = await response.json();
           this.prestadores = data;
         } catch (error) {
