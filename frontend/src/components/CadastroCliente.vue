@@ -97,4 +97,22 @@ export default {
   font-weight: bold;
 }
 
+.btn {
+  background-color: white; /* Cor de fundo do botão */
+  color: blue; /* Cor do texto */
+  border: 2px solid blue; /* Borda de 2 pixels, sólida e azul */
+  border-radius: 5px; /* Cantos arredondados */
+  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  font-weight: bold; /* Negrito */
+  cursor: pointer; /* Muda o cursor ao passar o mouse */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+.btn:hover {
+  background-color: #2980b9; /* Muda a cor de fundo ao passar o mouse */
+  color: white; /* Muda a cor do texto ao passar o mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
+}
+
 </style>

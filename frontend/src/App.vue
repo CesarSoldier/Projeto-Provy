@@ -3,49 +3,38 @@
     <header-component />
 
     <header>
-            <h1>Projeto Provy</h1>
-            <p>Plataforma para solução do seu problema</p>
-        </header>
-
-        <div class="home-container">
-          <router-link to="/">
-        <button class="home">Home</button>
-      </router-link>
+      <div class="header-left">
+      <img src="../Imagens/logo.png" alt="Logo" class="logo">
+        <h1>Provy</h1>
+        <p>Plataforma para solução<br> do seus problemas</p>
       </div>
-
-    <div class="navigation-buttons">
-      <router-link to="/cadastrocliente">
-        <button class="btn">Cadastro de Cliente</button>
-      </router-link>
-      <router-link to="/cadastroprestador">
-        <button class="btn">Cadastro de Prestador de Serviço</button>
-      </router-link>
-      <p>Já possui uma conta?</p> 
-      <div class="button-login">
-     <router-link to="/login"> 
-      <button class="btn">Faça o login</button>
-    </router-link>
-     </div>
-    </div>
+      <div class="header-right">
+        <router-link to="/cadastrocliente">
+          <button class="btn">Cadastro de Cliente</button>
+        </router-link>
+        <router-link to="/cadastroprestador">
+          <button class="btn">Cadastro de Prestador de Serviço</button>
+        </router-link>
+        <router-link to="/login">
+          <button class="btn">Faça o login</button>
+        </router-link>
+        <router-link to="/listadeprestadores">
+          <button class="btn list-prestadores-btn">Lista de Prestadores</button>
+        </router-link>
+      </div>
+    </header>
 
     <main class="main-content">
       <div v-if="$route.path === '/'">
         <service-list />
         <testimonials />
+        <provedor-list /> <!-- Aqui você inclui a lista de provedores -->
       </div>
 
       <router-view v-else />
     </main>
 
-
-    <!-- Caixa estilizada com o botão de destaque -->
-    <div class="highlight-box">
-      <p>Veja os melhores prestadores de serviços disponíveis na nossa plataforma!</p>
-      <router-link to="/listadeprestadores">
-        <button @click="hideHighlightBox" class="btn highlight-btn">Ver Lista de Prestadores</button>
-      </router-link>
-    </div>
-
+   
 
     <footer-component />
   </div>
@@ -58,6 +47,7 @@ import HeaderComponent from './components/HeaderComponent.vue';
 import ServiceList from './components/ServiceList.vue';
 import Testimonials from './components/Testimonials.vue';
 import FooterComponent from './components/FooterComponent.vue';
+import ProvedorList from './components/ListaDePrestadores.vue'; // Importa o novo componente
 
 export default {
   name: 'App',
@@ -66,18 +56,18 @@ export default {
     ServiceList,
     Testimonials,
     FooterComponent,
+    ProvedorList // Adiciona o componente aqui
   },
-  
   data() {
     return {
-      showHighlightBox: true, // Controle para mostrar/ocultar a caixa
+      showHighlightBox: true
     };
   },
   methods: {
     hideHighlightBox() {
-      this.showHighlightBox = false; // Esconde a caixa ao clicar no botão
+      this.showHighlightBox = false;
     }
-  },
+  }
 };
 </script>
 
@@ -85,83 +75,144 @@ export default {
 #app {
   display: flex;
   flex-direction: column; 
-  align-items: center; 
-  justify-content: space-between; 
   min-height: 100vh; 
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
   color: #2c3e50;
-  margin: 0; 
-  background-image: url("../Imagens/Provy (1).png");
-  background-size:cover;
+  margin: 0;
+  background-image: 
+    linear-gradient(rgba(30, 143, 255, 0.438), rgba(0, 0, 255, 0.479)), /* Gradiente azul com mais transparência */
+    url("../Imagens/fundo.png"); /* Imagem de fundo */
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
 }
 
-header h1{
-  color: blue;
-}
-.footer-component {
-  width: 100%; 
-}
-
-.main-content {
-  flex: 1; 
+header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center; 
-  padding: 20px; 
+  padding: 20px 30px;
   width: 100%;
-  max-width: 1200px; 
-  box-sizing: border-box; 
+  background-color: #001357;  
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.navigation-buttons {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
+.header-left {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  margin: 0px;
+  gap: 15px;
+}
 
+.logo {
+  margin-left: 10px;
+  height: 50px; 
+  margin-right: 10px; 
+}
+
+header h1 {
+  font-size: 1.75rem;
+  color: white;
+  margin: 0;
+  margin-left: -15px
+}
+
+
+header p {
+  font-size: 1.10rem;
+  color: white;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.header-right {
+  display: flex;
+  gap: 15px;
+  margin-right: 40px;
 }
 
 .btn {
-  padding: 10px 20px;
+
   background-color: white;
   color: blue;
-  font-weight: bold;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-p{
-  color: blue;
-  font-weight: bold;
-}
-
-.home{
   padding: 10px 20px;
-  background-color: white;
-  color: blue;
+  font-size: 1rem;
   font-weight: bold;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.home-container button:hover{
-  color: blue;
-  padding: 10px 30px;
+.btn:hover {
+  background-color: #2980b9;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.list-prestadores-btn {
+  background-color: #27ae60;
+  color: white;
+  border: none;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 1rem;
   font-weight: bold;
-  font-size: 16px;
-  transition: 0.5s;
+  cursor: pointer;
+  
+  
+}
+
+
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.highlight-box {
+  background-color: #eaf2f8;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  color: blue;
+  font-weight: bold;
+}
+
+footer-component {
+  width: 100%;
+}
+
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-right {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .header-left {
+    text-align: center;
+    align-items: center;
+  }
 }
 
 </style>
+
 

@@ -100,6 +100,20 @@ app.post('/registerprovedors', async (req, res) => {
   }
 });
 
+// Importar o modelo de Provedor
+
+
+// Endpoint para listar todos os provedores
+app.get('/provedores', async (req, res) => {
+  try {
+    const provedores = await Provedor.find(); // Busca todos os provedores
+    res.status(200).json(provedores); // Retorna a lista de provedores
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar provedores' });
+  }
+});
+
+
 mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("Conectado ao MongoDB"))
   .catch((error) => console.log("Erro ao conectar ao MongoDB", error));
