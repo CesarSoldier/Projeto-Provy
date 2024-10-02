@@ -11,26 +11,27 @@
   
   <script>
   export default {
-    data() {
-      return {
-        prestadores: []
-      };
-    },
-    methods: {
-      async buscarPrestadores() {
-        try {
-          const response = await fetch('http://13.61.25.37:3000/provedores');
-          const data = await response.json();
-          this.prestadores = data;
-        } catch (error) {
-          console.error('Erro ao buscar prestadores:', error);
-        }
+  data() {
+    return {
+      prestadores: []
+    };
+  },
+  methods: {
+    async buscarPrestadores() {
+      try {
+        const backendUrl = process.env.VUE_APP_BACKEND_URL; // Usa a variável de ambiente
+        const response = await fetch(`${backendUrl}/provedores`); // Concatena a URL base com o endpoint
+        const data = await response.json();
+        this.prestadores = data;
+      } catch (error) {
+        console.error('Erro ao buscar prestadores:', error);
       }
-    },
-    created() {
-      this.buscarPrestadores();
     }
-  };
+  },
+  created() {
+    this.buscarPrestadores();
+  }
+};
   </script>
   
   <style scoped>
