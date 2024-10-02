@@ -4,7 +4,9 @@
 
     <header>
       <div class="header-left">
-      <img src="../Imagens/logo.png" alt="Logo" class="logo">
+      <router-link to="/">
+        <button class="btnLogo"><img src="../Imagens/logo.png" alt="Logo" class="logo"></button>
+      </router-link>
         <h1>Provy</h1>
         <p>Plataforma para solução<br> do seus problemas</p>
       </div>
@@ -95,6 +97,7 @@ header {
   width: 100%;
   background-color: #001357;  
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
 }
 
 .header-left {
@@ -103,13 +106,22 @@ header {
   align-items: center;
   margin: 0px;
   gap: 15px;
+
   
 }
 
 .logo {
-  margin-left: 50px;
+ 
   height: 50px; 
   margin-right: 10px; 
+  
+  
+}
+
+.btnLogo{
+  border-radius: 50px;
+  background-color: #001357;
+  border: white;
 }
 
 header h1 {
