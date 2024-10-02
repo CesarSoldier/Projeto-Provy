@@ -29,16 +29,15 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const response = await axios.post('http://13.6125.27:3000/login', {
+        const backendUrl = process.env.VUE_APP_BACKEND_URL;
+
+        const response = await axios.post(`${backendUrl}/login`, {
           email: this.email,
           password: this.password,
         });
         console.log('Login bem-sucedido:', response.data);
 
-        // Armazena o token no localStorage ou em outro local seguro
         localStorage.setItem('authToken', response.data.token);
-
-        // Redireciona para a página de sucesso
         this.$router.push('/success');
       } catch (error) {
         console.error('Erro ao fazer login:', error.response.data.message);

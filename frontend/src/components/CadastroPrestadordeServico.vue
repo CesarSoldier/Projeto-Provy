@@ -39,14 +39,17 @@ export default {
       email: '',
       cpf: '',
       password: '',
-      errorMessage: '', 
+      especialidade: '',
+      errorMessage: '',
     };
   },
   methods: {
     async handleCadastro() {
       try {
-        this.errorMessage = ''; 
-        const response = await axios.post('http://13.61.25.37:3000/registerprovedors', {
+        this.errorMessage = '';
+        const backendUrl = process.env.VUE_APP_BACKEND_URL;
+
+        const response = await axios.post(`${backendUrl}/registerprovedors`, {
           name: this.name,
           email: this.email,
           cpf: this.cpf,
@@ -55,7 +58,6 @@ export default {
         });
         console.log('Usuário cadastrado:', response.data);
 
-        // Redireciona para a página de login
         this.$router.push('/login');
       } catch (error) {
         this.errorMessage = error.response.data.message || 'Erro ao cadastrar usuário';
