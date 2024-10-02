@@ -1,6 +1,6 @@
 <template>
   <section id="depoimentos">
-    <h2>O que nossos clientes dizem</h2>
+  
     <div class="testimonials">
       <div class="testimonial" v-for="(testimonial, index) in testimonials" :key="index">
         <p>"{{ testimonial.text }}"</p>
@@ -16,9 +16,7 @@ export default {
   data() {
     return {
       testimonials: [
-        { text: 'Plataforma excelente, muito profissional.', author: 'João Silva' },
-        { text: 'Altamente recomendado!', author: 'Maria Oliveira' },
-        { text: 'Ótima experiência, voltarei a utilizar.', author: 'Carlos Souza' },
+       
       ],
     };
   },
