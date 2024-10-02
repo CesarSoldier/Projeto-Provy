@@ -1,6 +1,7 @@
 <template>
+    <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
     <div class="Prestadores">
-      <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
+      
       <div v-for="prestador in prestadores" :key="prestador._id" class="card">
         <h3>{{ prestador.name }}</h3>
         <p><strong>Email:</strong> {{ prestador.email }}</p>
@@ -54,10 +55,14 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 20px 0;
+    gap: 20px;
+    padding: 20px;
+    background-color: rgb(13, 4, 66);
+    border-radius: 30px;
   }
   
   .card {
-    background-color: white;
+    background-color: rgb(223, 222, 231);
     border: 1px solid #ecf0f1;
     border-radius: 12px;
     padding: 20px;
@@ -65,6 +70,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    
   }
   
   .card:hover {

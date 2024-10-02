@@ -34,11 +34,22 @@ export default {
 .service {
   max-width: 300px;
   padding: 20px;
-  border: 1px solid #ddd;
+  
   border-radius: 10px;
+  background-color: rgba(13, 4, 66, 0.521);;
+}
+
+h2{
+  color: rgba(6, 3, 49, 0.767);
 }
 
 .service h3 {
   margin-bottom: 10px;
+  
+  color: rgb(245, 245, 245);
+}
+
+.service p{
+  color: rgb(197, 194, 201);
 }
 </style>
