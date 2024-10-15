@@ -42,7 +42,7 @@ export default {
     async handleCadastro() {
       try {
         this.errorMessage = '';
-        const backendUrl = process.env.VITE_APP_BACKEND_URL;
+        const backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
         
         const response = await axios.post(`${backendUrl}/register`, {
           name: this.name,
