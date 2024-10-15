@@ -9,8 +9,16 @@ import jwt from 'jsonwebtoken'; // Para criar tokens de autenticação
 const app = express();
 
 // Configura o middleware CORS
-app.use(cors());
-app.use(express.json());
+const corsOptions = {
+  origin: 'https://provy-4s6r.onrender.com',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200 // Para garantir compatibilidade com alguns navegadores
+};
+
+
+//Aplicaçao do cors configurado
+app.use(cors(corsOptions));
 
 // Endpoint para cadastro de usuários
 app.post('/register', async (req, res) => {
