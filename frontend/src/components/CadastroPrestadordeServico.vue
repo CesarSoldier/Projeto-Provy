@@ -24,7 +24,7 @@
           <label for="confirmarSenha">Confirmar Senha:</label>
           <input type="password" v-model="confirmarSenha" placeholder="********" required />
         </div>
-        <button type="button" class="btn" @click="proximaEtapa">Próxima Etapa</button>
+        <button type="button" class="btn" @click="proximaEtapa">→</button>
       </div>
       
       <!-- Segunda etapa do formulário -->
@@ -66,7 +66,7 @@
         <button type="submit" class="btn">Cadastrar</button>
       </div>
 
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <p v-if="errorMessage" class="error-message red-text">{{ errorMessage }}</p>
     </form>
     <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
   </div>
@@ -98,10 +98,18 @@ export default {
   },
   methods: {
     proximaEtapa() {
+      // Verificar se todos os campos estão preenchidos na primeira etapa
+      if (!this.name || !this.email || !this.cpf || !this.password || !this.confirmarSenha) {
+        this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
+        return;
+      }
+
+      // Verificar se as senhas coincidem
       if (this.password !== this.confirmarSenha) {
         this.errorMessage = 'As senhas não coincidem';
         return;
       }
+
       this.errorMessage = ''; // Limpar mensagem de erro antes de prosseguir
       this.etapa = 2;
     },
@@ -109,23 +117,16 @@ export default {
       this.etapa = 1;
     },
     async handleCadastro() {
+      // Verificar se todos os campos estão preenchidos na segunda etapa
+      if (!this.especialidade || !this.telefone || !this.endereco || !this.bairro || 
+          !this.cidade || !this.estado || !this.cep) {
+        this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
+        return;
+      }
+
       try {
         this.errorMessage = '';
         const backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
-
-        console.log("Dados enviados para o backend:", {
-          name: this.name,
-          email: this.email,
-          cpf: this.cpf,
-          password: this.password,
-          especialidade: this.especialidade,
-          telefone: this.telefone,
-          endereco: this.endereco,
-          bairro: this.bairro,
-          cidade: this.cidade,
-          estado: this.estado,
-          cep: this.cep,
-        });
 
         const response = await axios.post(`${backendUrl}/registerprovedors`, {
           name: this.name,
@@ -206,5 +207,14 @@ export default {
   background-color: #2980b9;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.error-message {
+  margin-top: 1rem;
+}
+
+/* Novo estilo para texto vermelho */
+.red-text {
+  color: red;
 }
 </style>

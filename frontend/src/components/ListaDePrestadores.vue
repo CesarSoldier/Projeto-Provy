@@ -22,9 +22,8 @@
         class="card"
       >
         <h3>{{ prestador.name }}</h3>
-        <p><strong>Email:</strong> {{ prestador.email }}</p>
         <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
-        <p><strong>Cidade:</strong> {{ prestador.cidade }}</p>
+
       </div>
     </div>
   </div>
