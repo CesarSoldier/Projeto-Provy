@@ -4,6 +4,7 @@
     <div class="carousel">
       <div class="services" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
         <div class="service" v-for="(service, index) in services" :key="index">
+          <img :src="service.image" alt="Imagem do serviço" class="service-image" />
           <h3 class="service-title">{{ service.title }}</h3>
           <p class="service-description">{{ service.description }}</p>
         </div>
@@ -17,45 +18,48 @@ export default {
   name: 'ServiceList',
   data() {
     return {
+      currentIndex: 0,
       services: [
-        { title: 'Otimização da busca', description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.' },
-        { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
-        { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
+        {
+          title: 'Otimização da busca',
+          description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.',
+          image: 'frontend/Imagens/busca.png' // Adicione a URL da imagem
+        },
+        {
+          title: 'Serviços de qualidade',
+          description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.',
+          image: 'servicoQualidade.png' // Adicione a URL da imagem
+        },
+        {
+          title: 'Visibilidade Maior',
+          description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.',
+          image: 'visibilidade.png' // Adicione a URL da imagem
+        },
       ],
-      currentIndex: 0, // Índice da caixa atual
     };
-  },
-  mounted() {
-    this.startCarousel(); // Inicia o carrossel
-  },
-  methods: {
-    startCarousel() {
-      setInterval(() => {
-        this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
-      }, 5000); 
-    },
   },
 };
 </script>
+
 
 
 <style scoped>
 .carousel {
   width: 100%;
   overflow: hidden; /* Oculta as partes que saem do carrossel */
-  height: 350px; /* Altura fixa que corresponde às caixas de serviço */
-  display: flex; /* Para garantir que os serviços sejam exibidos em linha */
-  align-items: center; /* Centraliza verticalmente o conteúdo */
+  display: flex; /* Habilita o uso de flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 250px; /* Altura fixa do carrossel */
 }
 
 .services {
   display: flex;
   transition: transform 0.5s ease-in-out; /* Suaviza a transição */
-  width: 80%; /* Para garantir que ocupe toda a largura disponível */
 }
 
 .service {
-  min-width: 100%; /* A caixa ocupa 100% do contêiner do carrossel */
+  flex: 0 0 100%; /* Garante que cada serviço ocupe 100% do contêiner do carrossel */
   height: 250px; /* Altura fixa para as caixas */
   background: #1565c0;
   padding: 30px;
@@ -65,10 +69,13 @@ export default {
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 10px; /* Espaçamento lateral entre as caixas */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  text-align: center; /* Centraliza o texto */
+  margin: 0; /* Remove a margem */
+  box-sizing: border-box; /* Inclui o padding e a borda na largura total */
 }
+
 
 
 .service:hover {
