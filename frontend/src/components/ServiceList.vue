@@ -32,7 +32,7 @@ export default {
     startCarousel() {
       setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
-      }, 5000); // Muda a cada 3 segundos
+      }, 5000); 
     },
   },
 };
@@ -43,7 +43,7 @@ export default {
 .carousel {
   width: 100%;
   overflow: hidden; /* Oculta as partes que saem do carrossel */
-  height: 250px; /* Altura fixa que corresponde às caixas de serviço */
+  height: 350px; /* Altura fixa que corresponde às caixas de serviço */
   display: flex; /* Para garantir que os serviços sejam exibidos em linha */
   align-items: center; /* Centraliza verticalmente o conteúdo */
 }
@@ -51,7 +51,7 @@ export default {
 .services {
   display: flex;
   transition: transform 0.5s ease-in-out; /* Suaviza a transição */
-  width: 100%; /* Para garantir que ocupe toda a largura disponível */
+  width: 80%; /* Para garantir que ocupe toda a largura disponível */
 }
 
 .service {
@@ -67,7 +67,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 10px; /* Espaçamento lateral entre as caixas */
 }
+
 
 .service:hover {
   transform: translateY(-10px);
