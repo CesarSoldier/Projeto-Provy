@@ -4,7 +4,6 @@
     <div class="carousel">
       <div class="services" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
         <div class="service" v-for="(service, index) in services" :key="index">
-          <img :src="service.image" alt="Imagem do serviço" class="service-image" />
           <h3 class="service-title">{{ service.title }}</h3>
           <p class="service-description">{{ service.description }}</p>
         </div>
@@ -18,29 +17,26 @@ export default {
   name: 'ServiceList',
   data() {
     return {
-      currentIndex: 0,
       services: [
-        {
-          title: 'Otimização da busca',
-          description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.',
-          image: 'frontend/Imagens/busca.png' // Adicione a URL da imagem
-        },
-        {
-          title: 'Serviços de qualidade',
-          description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.',
-          image: 'servicoQualidade.png' // Adicione a URL da imagem
-        },
-        {
-          title: 'Visibilidade Maior',
-          description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.',
-          image: 'visibilidade.png' // Adicione a URL da imagem
-        },
+        { title: 'Otimização da busca', description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.' },
+        { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
+        { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
       ],
+      currentIndex: 0, // Índice da caixa atual
     };
+  },
+  mounted() {
+    this.startCarousel(); // Inicia o carrossel
+  },
+  methods: {
+    startCarousel() {
+      setInterval(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
+      }, 5000); 
+    },
   },
 };
 </script>
-
 
 
 <style scoped>
@@ -75,6 +71,7 @@ export default {
   margin: 0; /* Remove a margem */
   box-sizing: border-box; /* Inclui o padding e a borda na largura total */
 }
+
 
 
 
