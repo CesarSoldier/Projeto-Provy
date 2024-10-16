@@ -2,6 +2,7 @@
   <div class="cadastro-container">
     <h2>Cadastro de Prestador de Serviços</h2>
     <form @submit.prevent="handleCadastro">
+      <!-- Primeira etapa do formulário -->
       <div v-if="etapa === 1">
         <div class="input-group">
           <label for="nome">Nome:</label>
@@ -26,10 +27,16 @@
         <button type="button" class="btn" @click="proximaEtapa">Próxima Etapa</button>
       </div>
       
+      <!-- Segunda etapa do formulário -->
       <div v-else-if="etapa === 2">
         <div class="input-group">
           <label for="especialidade">Informe sua especialidade:</label>
-          <input type="text" v-model="especialidade" placeholder="Ex: Pedreiro, Eletricista, Marceneiro..." required />
+          <select v-model="especialidade" required>
+            <option disabled value="">Selecione sua especialidade</option>
+            <option v-for="especialidade in especialidades" :key="especialidade" :value="especialidade">
+              {{ especialidade }}
+            </option>
+          </select>
         </div>
         <div class="input-group">
           <label for="telefone">Telefone:</label>
@@ -85,6 +92,8 @@ export default {
       cep: '',
       errorMessage: '',
       etapa: 1,
+      // Lista de especialidades
+      especialidades: ['Pedreiro', 'Eletricista', 'Marceneiro', 'Encanador', 'Pintor', 'Jardineiro', 'Mecânico'],
     };
   },
   methods: {
@@ -141,7 +150,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style scoped>
@@ -167,7 +175,8 @@ export default {
   color: blue;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ddd;
