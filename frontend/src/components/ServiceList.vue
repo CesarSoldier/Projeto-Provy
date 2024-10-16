@@ -2,11 +2,8 @@
   <section id="servicos">
     <h2 class="section-title">Para que posso usar o Provy?</h2>
     <div class="carousel">
-      <div class="services" :style="carouselStyle">
-        <div class="service" 
-          v-for="(service, index) in services" 
-          :key="index" 
-          :class="{ active: currentIndex === index }">
+      <div class="services" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+        <div class="service" v-for="(service, index) in services" :key="index">
           <h3 class="service-title">{{ service.title }}</h3>
           <p class="service-description">{{ service.description }}</p>
         </div>
@@ -25,72 +22,51 @@ export default {
         { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
         { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
       ],
-      currentIndex: 0,
-      interval: null,
+      currentIndex: 0, // Índice da caixa atual
     };
   },
-  computed: {
-    carouselStyle() {
-      return {
-        transform: `translateX(-${this.currentIndex * 100}%)`,
-        transition: 'transform 0.5s ease-in-out',
-      };
-    }
+  mounted() {
+    this.startCarousel(); // Inicia o carrossel
   },
   methods: {
-    nextSlide() {
-      this.currentIndex = (this.currentIndex + 1) % this.services.length;
-    },
     startCarousel() {
-      this.interval = setInterval(this.nextSlide, 3000); // Altera a cada 3 segundos
+      setInterval(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
+      }, 5000); // Muda a cada 3 segundos
     },
-    stopCarousel() {
-      clearInterval(this.interval);
-    }
   },
-  mounted() {
-    this.startCarousel();
-  },
-  beforeDestroy() {
-    this.stopCarousel();
-  }
 };
 </script>
 
+
 <style scoped>
-#servicos {
-  padding: 50px 20px;
-  background: linear-gradient(135deg, #e1f2ffee, #bbdefb);
-  text-align: center;
-  border-radius: 20px;
-  overflow: hidden; /* Oculta as caixas que estão fora do contêiner */
-}
-
-.section-title {
-  font-size: 2.5rem;
-  color: #0d47a1;
-  margin-bottom: 40px;
-  font-weight: bold;
-}
-
 .carousel {
   width: 100%;
-  overflow: hidden; /* Oculta partes que saem do carrossel */
+  overflow: hidden; /* Oculta as partes que saem do carrossel */
+  height: 250px; /* Altura fixa que corresponde às caixas de serviço */
+  display: flex; /* Para garantir que os serviços sejam exibidos em linha */
+  align-items: center; /* Centraliza verticalmente o conteúdo */
 }
 
 .services {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out; /* Suaviza a transição */
+  width: 100%; /* Para garantir que ocupe toda a largura disponível */
 }
 
 .service {
-  min-width: 100%; /* Cada serviço ocupa 100% da largura do contêiner */
+  min-width: 100%; /* A caixa ocupa 100% do contêiner do carrossel */
+  height: 250px; /* Altura fixa para as caixas */
   background: #1565c0;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .service:hover {
@@ -102,11 +78,15 @@ export default {
   font-size: 1.8rem;
   color: #ffffff;
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .service-description {
   font-size: 1rem;
   color: #f1f1f1;
   line-height: 1.6;
+  text-align: center;
 }
+
+
 </style>
