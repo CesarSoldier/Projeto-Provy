@@ -1,13 +1,26 @@
 <template>
   <section id="servicos">
     <h2 class="section-title">Para que posso usar o Provy?</h2>
+
+    <!-- Carrossel -->
     <div class="carousel">
-      <div class="services" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+      <div class="services" :style="{ transform: `translateX(-${activeSlide * 100}%)` }">
         <div class="service" v-for="(service, index) in services" :key="index">
           <h3 class="service-title">{{ service.title }}</h3>
           <p class="service-description">{{ service.description }}</p>
         </div>
       </div>
+    </div>
+
+    <!-- Indicadores de progresso -->
+    <div class="carousel-indicators">
+      <span 
+        v-for="(service, index) in services" 
+        :key="index" 
+        class="indicator" 
+        :class="{ active: index === activeSlide }"
+        @click="goToSlide(index)"
+      ></span>
     </div>
   </section>
 </template>
@@ -22,41 +35,57 @@ export default {
         { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
         { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
       ],
-      currentIndex: 0, // Índice da caixa atual
+      activeSlide: 0, // Slide ativo
     };
   },
   mounted() {
-    this.startCarousel(); // Inicia o carrossel
+    this.startAutoSlide();
   },
   methods: {
-    startCarousel() {
-      setInterval(() => {
-        this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
-      }, 5000); 
+    goToSlide(index) {
+      this.activeSlide = index; // Define o slide ativo com base no indicador clicado
     },
-  },
+    startAutoSlide() {
+      setInterval(() => {
+        this.activeSlide = (this.activeSlide + 1) % this.services.length; // Avança automaticamente para o próximo slide
+      }, 3000); // Troca de slide a cada 3 segundos
+    }
+  }
 };
 </script>
 
-
 <style scoped>
+#servicos {
+  padding: 50px 20px;
+  background: linear-gradient(135deg, #e1f2ffee, #bbdefb);
+  text-align: center;
+  border-radius: 20px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: #0d47a1;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
 .carousel {
   width: 100%;
-  overflow: hidden; /* Oculta as partes que saem do carrossel */
-  display: flex; /* Habilita o uso de flexbox */
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  height: 250px; /* Altura fixa do carrossel */
+  overflow: hidden;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .services {
   display: flex;
-  transition: transform 0.5s ease-in-out; /* Suaviza a transição */
+  transition: transform 0.5s ease-in-out;
 }
 
 .service {
-  flex: 0 0 100%; /* Garante que cada serviço ocupe 100% do contêiner do carrossel */
-  height: 250px; /* Altura fixa para as caixas */
+  flex: 0 0 100%;
+  height: 250px;
   background: #1565c0;
   padding: 30px;
   border-radius: 15px;
@@ -65,34 +94,42 @@ export default {
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centraliza o conteúdo verticalmente */
-  align-items: center; /* Centraliza o conteúdo horizontalmente */
-  text-align: center; /* Centraliza o texto */
-  margin: 0; /* Remove a margem */
-  box-sizing: border-box; /* Inclui o padding e a borda na largura total */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0;
+  box-sizing: border-box;
 }
 
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.indicator {
+  width: 12px;
+  height: 12px;
+  background-color: #726d6d;
+  border-radius: 50%;
+  margin: 0 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-
-.service:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+.indicator.active {
+  background-color: #1565c0;
 }
 
 .service-title {
   font-size: 1.8rem;
   color: #ffffff;
   margin-bottom: 15px;
-  text-align: center;
 }
 
 .service-description {
   font-size: 1rem;
   color: #f1f1f1;
   line-height: 1.6;
-  text-align: center;
 }
-
-
 </style>

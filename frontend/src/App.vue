@@ -5,9 +5,8 @@
     <header>
       <div class="header-left">
       <router-link to="/">
-        <button class="btnLogo"><img src="../Imagens/logo.png" alt="Logo" class="logo"></button>
+        <button class="btnLogo"><h1>Provy</h1></button>
       </router-link>
-        <h1>Provy</h1>
         <p>Plataforma para solução<br> do seus problemas</p>
       </div>
       <div class="header-right">
@@ -115,13 +114,12 @@ header {
   height: 50px; 
   margin-right: 10px; 
   
-  
 }
 
 .btnLogo{
-  border-radius: 50px;
   background-color: #001357;
   border: white;
+  margin-left: 15px;
 }
 
 header h1 {
