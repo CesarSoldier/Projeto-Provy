@@ -30,7 +30,7 @@
       <div v-if="$route.path === '/'">
         <service-list />
         <testimonials />
-        <provedor-list /> 
+        <provedor-list /> <!-- Aqui você inclui a lista de provedores -->
       </div>
 
       <router-view v-else />
@@ -227,5 +227,3 @@ footer-component {
 }
 
 </style>
-
-
