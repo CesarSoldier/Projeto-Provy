@@ -52,7 +52,10 @@ export default {
   methods: {
     async buscarPrestadores() {
       try {
-        const backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+        if(!backendUrl) {
+          backendUrl = process.env.VITE_APP_BACKEND_URL;
+        }
         const response = await fetch(`${backendUrl}/provedores`);
         const data = await response.json();
         this.prestadores = data;
