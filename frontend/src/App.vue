@@ -58,7 +58,7 @@ export default {
     ServiceList,
     Testimonials,
     FooterComponent,
-    ProvedorList // Adiciona o componente aqui
+    ProvedorList 
   },
   data() {
     return {
@@ -82,7 +82,7 @@ export default {
   color: #2c3e50;
   margin: 0;
   background-image: 
-    linear-gradient(rgba(30, 143, 255, 0.438), rgba(0, 0, 255, 0.479)), /* Gradiente azul com mais transparência */
+    linear-gradient(rgba(15, 70, 126, 0.815), rgba(0, 0, 97, 0.712)), /* Gradiente azul com mais transparência */
     url("../Imagens/fundo.png"); /* Imagem de fundo */
   background-size: cover; 
   background-repeat: no-repeat; 
