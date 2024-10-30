@@ -56,7 +56,9 @@ export default {
         if(!backendUrl) {
           backendUrl = process.env.VITE_APP_BACKEND_URL;
         }
-        const response = await fetch(`${backendUrl}/provedores`);
+        const response = await fetch(`${backendUrl}/provedores`, {
+          referrerPolicy: "unsafe-url" 
+        });
         const data = await response.json();
         this.prestadores = data;
       } catch (error) {
