@@ -126,7 +126,10 @@ export default {
 
       try {
         this.errorMessage = '';
-        const backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+        if(!backendUrl) {
+          backendUrl = process.env.VITE_APP_BACKEND_URL;
+        }
 
         const response = await axios.post(`${backendUrl}/registerprovedors`, {
           name: this.name,
