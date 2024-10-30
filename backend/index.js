@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import User from './models/Users.js';
 import Provedor from './models/Provedor.js';
-import bcrypt from 'bcrypt'; // Para hashing de senha
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'; // Para criar tokens de autenticação
 
 const app = express();
