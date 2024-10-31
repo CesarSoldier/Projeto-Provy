@@ -20,6 +20,8 @@ const corsOptions = {
 //Aplicaçao do cors configurado
 app.use(cors(corsOptions));
 
+app.use(express.json());
+
 // Endpoint para cadastro de usuários
 app.post('/register', async (req, res) => {
     try {
