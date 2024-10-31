@@ -10,7 +10,7 @@ const app = express();
 
 // Configura o middleware CORS
 const corsOptions = {
-  origin: 'https://provy-4s6r.onrender.com',
+  origin: '*',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200 // Para garantir compatibilidade com alguns navegadores
