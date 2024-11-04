@@ -30,7 +30,7 @@
       <div v-if="$route.path === '/'">
         <service-list />
         <testimonials />
-        <provedor-list /> <!-- Aqui você inclui a lista de provedores -->
+        <provedor-list /> 
       </div>
 
       <router-view v-else />

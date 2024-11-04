@@ -81,6 +81,11 @@ export default {
   text-align: center;
 }
 
+.section-title{
+  color: #ffffff;
+  text-align: center;
+}
+
 .service-description {
   font-size: 1rem;
   color: #f1f1f1;
