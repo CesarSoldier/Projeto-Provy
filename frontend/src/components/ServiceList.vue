@@ -76,8 +76,9 @@ export default {
 }
 
 .service-title {
+  
   font-size: 1.2em;
-  color: #2c3e50;
+  color: #075dad;;
   margin-bottom: 0.5em;
 }
 

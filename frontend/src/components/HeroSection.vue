@@ -1,9 +1,11 @@
 <template>
     <section class="hero-section">
       <div class="text-content">
-        <h1>Virtual service for you</h1>
-        <p>Provy provides progressive, and affordable healthcare, accessible on mobile and online for everyone</p>
-        <button class="cta-button">Consult today</button>
+        <h1>Atendimento virtual para você</h1>
+        <p>Provy oferece serviços de prestação progressiva e acessível, disponíveis em dispositivos móveis e online, para todos.</p>
+        <router-link to="/listadeprestadores"> 
+            <button class="cta-button">Consulte Hoje</button>
+        </router-link>
       </div>
       <div class="image-content">
         <img src="../assets/prestador.png" alt="Healthcare illustration">
@@ -51,7 +53,7 @@
   .cta-button {
     padding: 10px 20px;
     font-family: 'Mulish', sans-serif;
-    background-color: #3d9df6;
+    background-color: #075dad;
     color: #fff;
     border: none;
     border-radius: 5px;
