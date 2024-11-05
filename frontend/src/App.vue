@@ -48,7 +48,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  color: #2c3e50;
+
   margin: 0;
   background-image: linear-gradient(#f8f8f8, #eaf2f8);
   background-size: cover;

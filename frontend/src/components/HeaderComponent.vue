@@ -42,9 +42,10 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 20px 30px;
+  padding: 5px 60px;
   background-color: #f8f8f8;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 150px;
   
 }
 
@@ -59,15 +60,18 @@ header {
 .logo {
   height: 50px;
   margin-right: 10px;
+  ;
 }
 
 .btnLogo {
   border-radius: 50px;
   background-color: #f8f8f8;
   border: none;
+  outline: none;
+
+  
   
 }
-
 
 
 header h1 {
@@ -88,9 +92,10 @@ header p {
 
 .header-right {
   display: flex;
-  gap: 15px;
-  margin-right: 40px;
+  gap: 5px;
+  margin-right: 10px;
 }
+
 
 .btn {
   background-color: white;
@@ -99,27 +104,23 @@ header p {
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .btn:hover {
-  background-color: #2980b9;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+  transform: translateY(-3px);
+
+  
+  
 }
 
-.list-prestadores-btn {
-  background-color: #f8f8f8;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-}
+
+
 
 @media (max-width: 768px) {
   header {

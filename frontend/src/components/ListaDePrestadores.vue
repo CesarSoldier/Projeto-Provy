@@ -1,31 +1,59 @@
 <template>
-  <div class="Prestadores">
-    <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
-
-    <!-- Barra de pesquisa com título -->
-<div class="search-bar-container">
-  <label class="search-title">Buscar por especialidade:</label>
-  <div class="search-bar">
-    <input 
-      type="text" 
-      v-model="filtroEspecialidade" 
-      placeholder="Busque pela especialidade..." 
-    />
-  </div>
-</div>
-
-    <!-- Lista de prestadores filtrada -->
-    <div class="cards-container">
-      <div 
-        v-for="prestador in prestadoresFiltrados" 
-        :key="prestador._id" 
-        class="card"
-      >
-        <h3>{{ prestador.name }}</h3>
-        <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
-
+  <div class="olx-layout">
+    <!-- Header com barra de busca -->
+    <header class="header">
+      <div class="logo"> <!-- Aqui você pode inserir um logo ou texto similar ao da OLX -->
+        <img src="../assets/logo.jpeg" alt="Logo">
       </div>
-    </div>
+      <input 
+        type="text" 
+        v-model="filtroEspecialidade" 
+        placeholder="Buscar por especialidade..." 
+        class="search-input"
+      />
+      <nav class="nav-options">
+        <span>Plano Profissional</span>
+        <span>Meus Anúncios</span>
+        <span>Chat</span>
+        <button class="anunciar-btn">Anunciar grátis</button>
+      </nav>
+    </header>
+
+    <!-- Sidebar de categorias -->
+    <aside class="sidebar">
+      <h3>Categorias</h3>
+      <ul>
+        <li>Imóveis</li>
+        <li>Autos e peças</li>
+        <li>Celulares e Telefonia</li>
+        <li>Casa, Decoração e Utensílios</li>
+        <li>Móveis</li>
+        <li>Eletro</li>
+        <li>Materiais de Construção</li>
+        <li>Informática</li>
+        <li>Games</li>
+        <li>TVs e Vídeo</li>
+        <li>Áudio</li>
+        <li>Câmeras e Drones</li>
+        <li>Moda e Beleza</li>
+      </ul>
+    </aside>
+
+    <!-- Conteúdo principal: lista de prestadores -->
+    <main class="main-content">
+      <h2 class="title-centralizada">Anúncios de Prestadores Disponíveis</h2>
+
+      <div class="cards-container">
+        <div 
+          v-for="prestador in prestadoresFiltrados" 
+          :key="prestador._id" 
+          class="card"
+        >
+          <h3>{{ prestador.name }}</h3>
+          <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -34,18 +62,18 @@ export default {
   data() {
     return {
       prestadores: [],
-      filtroEspecialidade: "" // Campo para armazenar o filtro
+      filtroEspecialidade: ""
     };
   },
   computed: {
     prestadoresFiltrados() {
       if (!this.filtroEspecialidade) {
-        return this.prestadores; // Retorna todos se o filtro estiver vazio
+        return this.prestadores;
       }
       return this.prestadores.filter(prestador => 
         prestador.especialidade
           .toLowerCase()
-          .includes(this.filtroEspecialidade.toLowerCase()) // Filtra pela especialidade
+          .includes(this.filtroEspecialidade.toLowerCase())
       );
     }
   },
@@ -73,13 +101,103 @@ export default {
 </script>
 
 <style scoped>
-
+/* Estilos gerais */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: white;
+  color: #424242;
   background-color: #f0f2f5;
   margin: 0;
   padding: 0;
+}
+
+/* Header estilo OLX */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  height: 40px;
+}
+
+.search-input {
+  width: 40%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #1565c0;
+  box-shadow: 0 0 5px rgba(21, 101, 192, 0.5);
+}
+
+.nav-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.anunciar-btn {
+  background-color: #ff6d00;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.anunciar-btn:hover {
+  background-color: #ff8a00;
+}
+
+/* Sidebar de categorias */
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  background-color: #ffffff;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  height: calc(100% - 70px);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+  color: #0d47a1;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+  color: #424242;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar li:hover {
+  color: #1565c0;
+}
+
+/* Conteúdo principal */
+.main-content {
+  margin-left: 220px; /* Espaço para a sidebar */
+  padding: 20px;
 }
 
 .title-centralizada {
@@ -88,18 +206,6 @@ body {
   color: #0d47a1;
   margin: 30px auto;
   font-weight: bold;
-}
-
-.Prestadores {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px auto;
-  padding: 25px;
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-  border-radius: 20px;
-  max-width: 1200px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .cards-container {
@@ -138,6 +244,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+
   .cards-container {
     flex-direction: column;
     align-items: center;
@@ -147,46 +257,9 @@ body {
     width: 100%;
     max-width: 350px;
   }
-}
 
-.search-bar-container {
-  display: flex;
-  align-items: center; /* Alinha o título e o input no centro verticalmente */
-  justify-content: center; /* Centraliza o conjunto na página */
-  margin-bottom: 20px;
-  gap: 15px; /* Espaçamento entre o título e a barra de pesquisa */
-}
-
-/* Estilo do título da barra de pesquisa */
-.search-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #0d47a1;
-}
-
-/* Estilo da barra de pesquisa */
-.search-bar {
-  padding: 0;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid #ddd;
-}
-
-.search-bar input {
-  padding: 12px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.search-bar input:focus {
-  border-color: #1565c0;
-  box-shadow: 0 0 5px rgba(21, 101, 192, 0.5);
+  .sidebar {
+    display: none;
+  }
 }
 </style>

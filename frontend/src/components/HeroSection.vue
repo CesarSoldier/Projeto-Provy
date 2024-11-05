@@ -26,7 +26,7 @@
     align-items: center;
     justify-content: space-between;
     max-width: 100%;
-    padding: 80px 40px; /* Maior espaçamento para alinhar ao canto */
+    padding: 40px 20px; /* Maior espaçamento para alinhar ao canto */
     box-sizing: border-box;
   }
   
@@ -36,7 +36,8 @@
   }
   
   .text-content h1 {
-    font-size: 2.5em;
+    font-family: 'Mulish', sans-serif;
+    font-size: 1.7em;
     color: #000;
     margin-bottom: 0.5em;
     text-align: left;

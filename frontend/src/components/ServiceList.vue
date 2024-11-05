@@ -34,7 +34,7 @@ export default {
 <style scoped>
 #servicos {
   text-align: center;
-  padding: 70px 20px;
+  padding: 80px 150px;
   
 }
 
@@ -56,7 +56,7 @@ export default {
 .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 110px;
+  gap: 40px;
   font-family: 'Mulish', sans-serif;
 }
 
