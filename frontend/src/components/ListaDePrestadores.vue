@@ -3,16 +3,16 @@
     <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
 
     <!-- Barra de pesquisa com título -->
-<div class="search-bar-container">
-  <label class="search-title">Buscar por especialidade:</label>
-  <div class="search-bar">
-    <input 
-      type="text" 
-      v-model="filtroEspecialidade" 
-      placeholder="Busque pela especialidade..." 
-    />
-  </div>
-</div>
+    <div class="search-bar-container">
+      <label class="search-title">Buscar por especialidade:</label>
+      <div class="search-bar">
+        <input 
+          type="text" 
+          v-model="filtroEspecialidade" 
+          placeholder="Busque pela especialidade..." 
+        />
+      </div>
+    </div>
 
     <!-- Lista de prestadores filtrada -->
     <div class="cards-container">
@@ -20,50 +20,58 @@
         v-for="prestador in prestadoresFiltrados" 
         :key="prestador._id" 
         class="card"
+        @click="abrirModal(prestador)"
       >
         <h3>{{ prestador.name }}</h3>
         <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
-
       </div>
     </div>
+
+    <!-- Modal para exibir detalhes do prestador -->
+    <PrestadorModal
+      :isVisible="mostrarModal"
+      :prestadorSelecionado="prestadorSelecionado"
+      @close="mostrarModal = false"
+    />
   </div>
 </template>
 
 <script>
+import PrestadorModal from './PrestadorModal.vue';
+
 export default {
+  components: {
+    PrestadorModal
+  },
   data() {
     return {
       prestadores: [],
-      filtroEspecialidade: "" // Campo para armazenar o filtro
+      filtroEspecialidade: "",
+      mostrarModal: false,
+      prestadorSelecionado: null,
     };
   },
   computed: {
     prestadoresFiltrados() {
-      if (!this.filtroEspecialidade) {
-        return this.prestadores; // Retorna todos se o filtro estiver vazio
-      }
-      return this.prestadores.filter(prestador => 
-        prestador.especialidade
-          .toLowerCase()
-          .includes(this.filtroEspecialidade.toLowerCase()) // Filtra pela especialidade
+      if (!this.filtroEspecialidade) return this.prestadores;
+      return this.prestadores.filter(prestador =>
+        prestador.especialidade.toLowerCase().includes(this.filtroEspecialidade.toLowerCase())
       );
     }
   },
   methods: {
     async buscarPrestadores() {
       try {
-        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
-        if(!backendUrl) {
-          backendUrl = process.env.VITE_APP_BACKEND_URL;
-        }
-        const response = await fetch(`${backendUrl}/provedores`, {
-          referrerPolicy: "unsafe-url" 
-        });
-        const data = await response.json();
-        this.prestadores = data;
+        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
+        const response = await fetch(`${backendUrl}/provedores`);
+        this.prestadores = await response.json();
       } catch (error) {
         console.error('Erro ao buscar prestadores:', error);
       }
+    },
+    abrirModal(prestador) {
+      this.prestadorSelecionado = prestador;
+      this.mostrarModal = true;
     }
   },
   mounted() {

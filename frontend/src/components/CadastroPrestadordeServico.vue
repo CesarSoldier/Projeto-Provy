@@ -27,8 +27,8 @@
         <button type="button" class="btn" @click="proximaEtapa">→</button>
       </div>
       
-      <!-- Segunda etapa do formulário -->
-      <div v-else-if="etapa === 2">
+       <!-- Segunda etapa do formulário -->
+       <div v-else-if="etapa === 2">
         <div class="input-group">
           <label for="especialidade">Informe sua especialidade:</label>
           <select v-model="especialidade" required>
@@ -41,6 +41,10 @@
         <div class="input-group">
           <label for="telefone">Telefone:</label>
           <input type="tel" v-model="telefone" placeholder="(xx) xxxxx-xxxx" required />
+        </div>
+        <div class="input-group">
+          <label for="cep">CEP:</label>
+          <input type="text" v-model="cep" placeholder="Seu CEP" required />
         </div>
         <div class="input-group">
           <label for="endereco">Endereço:</label>
@@ -57,10 +61,6 @@
         <div class="input-group">
           <label for="estado">Estado:</label>
           <input type="text" v-model="estado" placeholder="Seu estado" required />
-        </div>
-        <div class="input-group">
-          <label for="cep">CEP:</label>
-          <input type="text" v-model="cep" placeholder="Seu CEP" required />
         </div>
         <button type="button" class="btn" @click="voltarEtapa">Voltar</button>
         <button type="submit" class="btn">Cadastrar</button>
@@ -92,44 +92,51 @@ export default {
       cep: '',
       errorMessage: '',
       etapa: 1,
-      // Lista de especialidades
       especialidades: ['Pedreiro', 'Eletricista', 'Marceneiro', 'Encanador', 'Pintor', 'Jardineiro', 'Mecânico'],
     };
   },
   methods: {
+    async buscarEndereco() {
+      if (this.cep.length === 8) { 
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${this.cep}/json/`);
+          if (response.data.erro) {
+            this.errorMessage = 'CEP não encontrado.';
+          } else {
+            this.endereco = response.data.logradouro;
+            this.bairro = response.data.bairro;
+            this.cidade = response.data.localidade;
+            this.estado = response.data.uf;
+          }
+        } catch (error) {
+          this.errorMessage = 'Erro ao buscar endereço. Verifique o CEP e tente novamente.';
+        }
+      }
+    },
     proximaEtapa() {
-      // Verificar se todos os campos estão preenchidos na primeira etapa
       if (!this.name || !this.email || !this.cpf || !this.password || !this.confirmarSenha) {
         this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
         return;
       }
-
-      // Verificar se as senhas coincidem
       if (this.password !== this.confirmarSenha) {
         this.errorMessage = 'As senhas não coincidem';
         return;
       }
-
-      this.errorMessage = ''; // Limpar mensagem de erro antes de prosseguir
+      this.errorMessage = '';
       this.etapa = 2;
     },
     voltarEtapa() {
       this.etapa = 1;
     },
     async handleCadastro() {
-      // Verificar se todos os campos estão preenchidos na segunda etapa
       if (!this.especialidade || !this.telefone || !this.endereco || !this.bairro || 
           !this.cidade || !this.estado || !this.cep) {
         this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
         return;
       }
-
       try {
         this.errorMessage = '';
-        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
-        if(!backendUrl) {
-          backendUrl = process.env.VITE_APP_BACKEND_URL;
-        }
+        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
 
         const response = await axios.post(`${backendUrl}/registerprovedors`, {
           name: this.name,
@@ -153,8 +160,22 @@ export default {
       }
     },
   },
+  watch: {
+    cep(value) {
+      if (value.length === 8) {
+        this.buscarEndereco();
+      } else if (value === '') {
+        // Limpar campos de endereço se o CEP estiver vazio
+        this.endereco = '';
+        this.bairro = '';
+        this.cidade = '';
+        this.estado = '';
+      }
+    }
+  }
 };
 </script>
+
 
 <style scoped>
 .input-group {

@@ -24,7 +24,7 @@ export default {
         { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
         { title: 'Informações detalhadas', description: 'Consulta gratuita com os nossos prestadores de confiança para melhor recomendações.' },
         { title: 'Atendimento de emergência', description: 'Você pode obter atendimento urgente para você e sua família a qualquer momento.' },
-        { title: 'Rastreamento', description: 'Acompanhe e salve seu histórico de serviços com o Provy.' }
+        { title: 'Histórico de serviços', description: 'Acompanhe e salve seu histórico de serviços com o Provy.' }
       ]
     };
   }
