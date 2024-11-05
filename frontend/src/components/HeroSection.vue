@@ -1,0 +1,77 @@
+<template>
+    <section class="hero-section">
+      <div class="text-content">
+        <h1>Virtual service for you</h1>
+        <p>Provy provides progressive, and affordable healthcare, accessible on mobile and online for everyone</p>
+        <button class="cta-button">Consult today</button>
+      </div>
+      <div class="image-content">
+        <img src="../assets/prestador.png" alt="Healthcare illustration">
+      </div>
+    </section>
+  </template>
+  
+  <script>
+  export default {
+    name: 'HeroSection',
+  };
+  </script>
+  
+  <style scoped>
+  .hero-section {
+    font-family: 'Mulish', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 80px 40px; /* Maior espaçamento para alinhar ao canto */
+    box-sizing: border-box;
+  }
+  
+  .text-content {
+    max-width: 400px;
+    text-align: left;
+  }
+  
+  .text-content h1 {
+    font-size: 2.5em;
+    color: #000;
+    margin-bottom: 0.5em;
+    text-align: left;
+  }
+  
+  .text-content p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 1.5em;
+    line-height: 1.5;
+    font-family: 'Mulish', sans-serif;
+  }
+  
+  .cta-button {
+    padding: 10px 20px;
+    font-family: 'Mulish', sans-serif;
+    background-color: #3d9df6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #2c82e0;
+  }
+  
+  .image-content {
+    max-width: 500px;
+    margin-left: auto; /* Move a imagem para o extremo direito */
+  }
+  
+  .image-content img {
+    width: 100%;
+    height: auto;
+  }
+  </style>
+  

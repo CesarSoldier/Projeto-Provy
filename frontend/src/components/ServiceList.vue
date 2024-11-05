@@ -1,12 +1,13 @@
 <template>
   <section id="servicos">
     <h2 class="section-title">Para que posso usar o Provy?</h2>
-    <div class="carousel">
-      <div class="services" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-        <div class="service" v-for="(service, index) in services" :key="index">
-          <h3 class="service-title">{{ service.title }}</h3>
-          <p class="service-description">{{ service.description }}</p>
-        </div>
+    <p class="section-description">
+      Nós oferecemos as melhores escolhas para você. Com o Provy, você pode ajustar os serviços às suas necessidades e contar com o auxílio dos melhores prestadores.
+    </p>
+    <div class="service-grid">
+      <div class="service-card" v-for="(service, index) in services" :key="index">
+        <h3 class="service-title">{{ service.title }}</h3>
+        <p class="service-description">{{ service.description }}</p>
       </div>
     </div>
   </section>
@@ -21,72 +22,68 @@ export default {
         { title: 'Otimização da busca', description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.' },
         { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
         { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
-      ],
-      currentIndex: 0, // Índice da caixa atual
+        { title: 'Informações detalhadas', description: 'Consulta gratuita com os nossos prestadores de confiança para melhor recomendações.' },
+        { title: 'Atendimento de emergência', description: 'Você pode obter atendimento urgente para você e sua família a qualquer momento.' },
+        { title: 'Rastreamento', description: 'Acompanhe e salve seu histórico de serviços com o Provy.' }
+      ]
     };
-  },
-  mounted() {
-    this.startCarousel(); // Inicia o carrossel
-  },
-  methods: {
-    startCarousel() {
-      setInterval(() => {
-        this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
-      }, 5000); 
-    },
-  },
+  }
 };
 </script>
 
-
 <style scoped>
-.carousel {
-  width: 100%;
-  overflow: hidden; /* Oculta as partes que saem do carrossel */
-  display: flex; /* Habilita o uso de flexbox */
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  height: 250px; /* Altura fixa do carrossel */
+#servicos {
+  text-align: center;
+  padding: 70px 20px;
+  
 }
 
-.services {
-  display: flex;
-  transition: transform 0.5s ease-in-out; /* Suaviza a transição */
+.section-title {
+  font-size: 2em;
+  color: #2c3e50;
+  margin-bottom: 0.5em;
+  font-family: 'Mulish', sans-serif;
 }
 
-.service {
-  flex: 0 0 100%; /* Garante que cada serviço ocupe 100% do contêiner do carrossel */
-  height: 250px; /* Altura fixa para as caixas */
-  background: #1565c0;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+.section-description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 2em;
+  line-height: 1.5;
+  font-family: 'Mulish', sans-serif;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 110px;
+  font-family: 'Mulish', sans-serif;
+}
+
+.service-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centraliza o conteúdo verticalmente */
-  align-items: center; /* Centraliza o conteúdo horizontalmente */
-  text-align: center; /* Centraliza o texto */
-  margin: 0; /* Remove a margem */
-  box-sizing: border-box; /* Inclui o padding e a borda na largura total */
+  font-family: 'Mulish', sans-serif;
 }
 
-
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
 
 .service-title {
-  font-size: 1.8rem;
-  color: #ffffff;
-  margin-bottom: 15px;
-  text-align: center;
+  font-size: 1.2em;
+  color: #2c3e50;
+  margin-bottom: 0.5em;
 }
 
 .service-description {
-  font-size: 1rem;
-  color: #f1f1f1;
-  line-height: 1.6;
-  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.4;
 }
-
-
 </style>
