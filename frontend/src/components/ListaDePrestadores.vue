@@ -2,28 +2,27 @@
   <div class="Prestadores">
     <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
 
-    <!-- Barra de pesquisa com título -->
-    <div class="search-bar-container">
-      <label class="search-title">Buscar por especialidade:</label>
-      <div class="search-bar">
-        <input 
-          type="text" 
-          v-model="filtroEspecialidade" 
-          placeholder="Busque pela especialidade..." 
-        />
-      </div>
-    </div>
+    <div class="filtros-container">
+      <!-- Componente de filtro -->
+      <FiltroPrestadores
+        :estadosDisponiveis="estadosDisponiveis"
+        :cidadesDisponiveis="cidadesDisponiveis"
+        @filtro-especialidade="atualizarFiltroEspecialidade"
+        @filtro-estado="atualizarFiltroEstado"
+        @filtro-cidade="atualizarFiltroCidade"
+      />
 
-    <!-- Lista de prestadores filtrada -->
-    <div class="cards-container">
-      <div 
-        v-for="prestador in prestadoresFiltrados" 
-        :key="prestador._id" 
-        class="card"
-        @click="abrirModal(prestador)"
-      >
-        <h3>{{ prestador.name }}</h3>
-        <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
+      <!-- Lista de prestadores -->
+      <div class="cards-container">
+        <div
+          v-for="prestador in prestadoresFiltrados"
+          :key="prestador._id"
+          class="card"
+          @click="abrirModal(prestador)"
+        >
+          <h3>{{ prestador.name }}</h3>
+          <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
+        </div>
       </div>
     </div>
 
@@ -37,27 +36,36 @@
 </template>
 
 <script>
+import FiltroPrestadores from './FiltroPrestadores.vue';
 import PrestadorModal from './PrestadorModal.vue';
 
 export default {
   components: {
-    PrestadorModal
+    FiltroPrestadores,
+    PrestadorModal,
   },
   data() {
     return {
       prestadores: [],
-      filtroEspecialidade: "",
+      filtroEspecialidade: '',
+      filtroEstado: '',
+      filtroCidade: '',
+      estadosDisponiveis: [],
+      cidadesDisponiveis: [],
       mostrarModal: false,
       prestadorSelecionado: null,
     };
   },
   computed: {
     prestadoresFiltrados() {
-      if (!this.filtroEspecialidade) return this.prestadores;
-      return this.prestadores.filter(prestador =>
-        prestador.especialidade.toLowerCase().includes(this.filtroEspecialidade.toLowerCase())
-      );
-    }
+      return this.prestadores.filter(prestador => {
+        return (
+          (this.filtroEspecialidade === '' || prestador.especialidade.toLowerCase().includes(this.filtroEspecialidade.toLowerCase())) &&
+          (this.filtroEstado === '' || prestador.estado === this.filtroEstado) &&
+          (this.filtroCidade === '' || prestador.cidade === this.filtroCidade)
+        );
+      });
+    },
   },
   methods: {
     async buscarPrestadores() {
@@ -65,23 +73,47 @@ export default {
         let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
         const response = await fetch(`${backendUrl}/provedores`);
         this.prestadores = await response.json();
+
+        this.atualizarFiltros();
       } catch (error) {
         console.error('Erro ao buscar prestadores:', error);
       }
     },
+    atualizarFiltros() {
+      const estados = new Set(this.prestadores.map(p => p.estado));
+      this.estadosDisponiveis = Array.from(estados);
+      this.atualizarCidadesDisponiveis();
+    },
+    atualizarCidadesDisponiveis() {
+      const cidades = new Set(
+        this.prestadores
+          .filter(p => this.filtroEstado === '' || p.estado === this.filtroEstado)
+          .map(p => p.cidade)
+      );
+      this.cidadesDisponiveis = Array.from(cidades);
+    },
+    atualizarFiltroEspecialidade(novoFiltro) {
+      this.filtroEspecialidade = novoFiltro;
+    },
+    atualizarFiltroEstado(novoFiltro) {
+      this.filtroEstado = novoFiltro;
+      this.atualizarCidadesDisponiveis();
+    },
+    atualizarFiltroCidade(novoFiltro) {
+      this.filtroCidade = novoFiltro;
+    },
     abrirModal(prestador) {
       this.prestadorSelecionado = prestador;
       this.mostrarModal = true;
-    }
+    },
   },
   mounted() {
     this.buscarPrestadores();
-  }
+  },
 };
 </script>
 
 <style scoped>
-
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: white;
@@ -104,10 +136,19 @@ body {
   align-items: center;
   margin: 20px auto;
   padding: 25px;
+  padding-top: 50px; 
   background: linear-gradient(135deg, #e3f2fd, #bbdefb);
   border-radius: 20px;
   max-width: 1200px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  min-height: 600px; 
+}
+
+
+.layout-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
 }
 
 .cards-container {
@@ -115,6 +156,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
+  flex: 1;
 }
 
 .card {
@@ -146,7 +188,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .cards-container {
+  .layout-container {
     flex-direction: column;
     align-items: center;
   }
@@ -155,46 +197,5 @@ body {
     width: 100%;
     max-width: 350px;
   }
-}
-
-.search-bar-container {
-  display: flex;
-  align-items: center; /* Alinha o título e o input no centro verticalmente */
-  justify-content: center; /* Centraliza o conjunto na página */
-  margin-bottom: 20px;
-  gap: 15px; /* Espaçamento entre o título e a barra de pesquisa */
-}
-
-/* Estilo do título da barra de pesquisa */
-.search-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #0d47a1;
-}
-
-/* Estilo da barra de pesquisa */
-.search-bar {
-  padding: 0;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid #ddd;
-}
-
-.search-bar input {
-  padding: 12px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.search-bar input:focus {
-  border-color: #1565c0;
-  box-shadow: 0 0 5px rgba(21, 101, 192, 0.5);
 }
 </style>
