@@ -1,8 +1,18 @@
 <template>
   <section id="servicos">
-    <h2 class="section-title">Para que posso usar o Provy?</h2>
-    <p class="section-description">
-      Nós oferecemos as melhores escolhas para você. Com o Provy, você pode ajustar os serviços às suas necessidades e contar com o auxílio dos melhores prestadores.
+    <div class="image-list">
+      <div class="image-content">
+        <img src="../assets/prestadordeserviço.png" alt="prestadordeserviço">
+      </div>
+      <h2 class="section-title">Para que posso usar o Provy?</h2>
+      <p class="section-description">
+        Nós oferecemos as melhores escolhas para você. Com o Provy, você pode ajustar os serviços às suas necessidades e
+        contar com o auxílio dos melhores prestadores.
+      </p>
+    </div>
+
+    <p class="section-advantage">
+      Vantagens de você usar o Provy
     </p>
     <div class="service-grid">
       <div class="service-card" v-for="(service, index) in services" :key="index">
@@ -35,13 +45,38 @@ export default {
 #servicos {
   text-align: center;
   padding: 80px 150px;
-  
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  /* Alinha verticalmente ao centro */
+  justify-content: center;
+  /* Alinha horizontalmente ao centro */
+  gap: 40px;
+  /* Espaço entre a imagem e o conteúdo */
+}
+
+.text-content {
+  text-align: left;
 }
 
 .section-title {
-  font-size: 2em;
+  display: flex;
+  justify-content: right;
+  font-size: 1.5em;
   color: #2c3e50;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  font-family: 'Mulish', sans-serif;
+
+}
+
+.section-advantage {
+  font-size: 1.5em;
+  color: #2c3e50;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-family: 'Mulish', sans-serif;
 }
 
@@ -76,15 +111,33 @@ export default {
 }
 
 .service-title {
-  
   font-size: 1.2em;
-  color: #075dad;;
+  color: #075dad;
   margin-bottom: 0.5em;
 }
+
 
 .service-description {
   font-size: 0.9em;
   color: #666;
-  line-height: 1.4;
+  line-height: 1.8;
+}
+
+.image-content {
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: 0.2px;
+}
+
+.image-content img {
+  max-width: 100%;
+  width: 1600px;
+  height: auto;
+  border-radius: 50px;
+}
+
+.image-list {
+  display: flex;
+  margin-bottom: 150px;
 }
 </style>

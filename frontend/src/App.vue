@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <header-component />
+    <div id="app">
+    <header-component v-if="!escondeComponente" />
     
     <main class="main-content">
       <div v-if="$route.path === '/'">
@@ -33,7 +33,14 @@ export default {
     Testimonials,
     FooterComponent,
   },
+  computed: {
+    escondeComponente(){
+      return this.$route.path === '/listadeprestadores'
+    }
+  }
 };
+
+
 </script>
 
 <style>
