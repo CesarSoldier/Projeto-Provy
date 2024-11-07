@@ -2,23 +2,23 @@
   <header>
     <div class="header-left">
       <router-link to="/">
-        <button class="btnLogo"><img src="../assets/icon-provy.png" alt="Logo" class="logo" /></button>
+        <button class="btnLogo">
+          <img src="../assets/icon-provy.png" alt="Logo" class="logo" />
+        </button>
       </router-link>
       <h1>Provy</h1>
-     
     </div>
+
     <div class="header-right">
-      <router-link to="/cadastrocliente">
-        <button class="btn">Cadastro de Cliente</button>
-      </router-link>
-      <router-link to="/cadastroprestador">
-        <button class="btn">Cadastro de Prestador de Serviço</button>
-      </router-link>
+      <div class="dropdown">
+        <button class="btn">Cadastro</button>
+        <div class="dropdown-content">
+          <router-link to="/cadastrocliente">Cadastro de Cliente</router-link>
+          <router-link to="/cadastroprestador">Cadastro de Prestador</router-link>
+        </div>
+      </div>
       <router-link to="/login">
         <button class="btn">Faça o login</button>
-      </router-link>
-      <router-link to="/listadeprestadores">
-        <button class="btn list-prestadores-btn">Lista de Prestadores</button>
       </router-link>
     </div>
   </header>
@@ -31,65 +31,47 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos do cabeçalho fixo */
 header {
-  
-  position: fixed; /* Fixa o header no topo */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Z-index alto para sobrepor o conteúdo */
+  z-index: 1000;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 20px 30px;
   background-color: #f8f8f8;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  
 }
 
 .header-left {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  margin: 0px;
   gap: 15px;
 }
 
 .logo {
   height: 50px;
-  margin-right: 10px;
 }
 
 .btnLogo {
   border-radius: 50px;
   background-color: #f8f8f8;
   border: none;
-  
 }
-
-
 
 header h1 {
   font-size: 1.75rem;
   font-family: 'Mulish', sans-serif;
   color: black;
   margin: 0;
-  margin-left: -15px;
-}
-
-header p {
-  font-size: 1.10rem;
-  font-family: 'Mulish', sans-serif;
-  color: black;
-  margin: 0;
-  margin-left: 10px;
 }
 
 .header-right {
   display: flex;
   gap: 15px;
-  margin-right: 40px;
+  align-items: center;
 }
 
 .btn {
@@ -111,14 +93,37 @@ header p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.list-prestadores-btn {
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
   background-color: #f8f8f8;
-  color: black;
-  border: none;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  padding: 10px 0;
+  z-index: 1;
+  min-width: 200px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  display: block;
   font-size: 1rem;
   font-weight: bold;
-  cursor: pointer;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 @media (max-width: 768px) {
