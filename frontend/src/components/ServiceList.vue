@@ -4,15 +4,18 @@
       <div class="image-content">
         <img src="../assets/prestadordeserviço.png" alt="prestadordeserviço">
       </div>
+    <div class ="text-content">
+      
       <h2 class="section-title">Para que posso usar o Provy?</h2>
       <p class="section-description">
         Nós oferecemos as melhores escolhas para você. Com o Provy, você pode ajustar os serviços às suas necessidades e
         contar com o auxílio dos melhores prestadores.
       </p>
     </div>
+    </div>
 
     <p class="section-advantage">
-      Vantagens de você usar o Provy
+      Vantagens de usar o Provy
     </p>
     <div class="service-grid">
       <div class="service-card" v-for="(service, index) in services" :key="index">
@@ -47,6 +50,10 @@ export default {
   padding: 80px 150px;
 }
 
+div.image-list{
+  display: flex;
+}
+
 .content-container {
   display: flex;
   align-items: center;
@@ -78,6 +85,7 @@ export default {
   margin-bottom: 0.5em;
   margin-top: 0.5em;
   font-family: 'Mulish', sans-serif;
+  padding-bottom: 40px;
 }
 
 .section-description {
