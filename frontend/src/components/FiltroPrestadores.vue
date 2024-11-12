@@ -1,104 +1,144 @@
 <template>
-    <div class="filtro-quadro">
-      <div class="input-group">
-        <label>Buscar por especialidade:</label>
-        <input type="text" v-model="filtroEspecialidade" @input="atualizarFiltroEspecialidade" placeholder="Busque pela especialidade..." />
-      </div>
-  
-      <div class="input-group">
-        <label>Estado:</label>
-        <select v-model="filtroEstado" @change="atualizarFiltroEstado">
-          <option value="">Todos os estados</option>
-          <option v-for="estado in estadosDisponiveis" :key="estado" :value="estado">{{ estado }}</option>
-        </select>
-      </div>
-  
-      <div class="input-group">
-        <label>Cidade:</label>
-        <select v-model="filtroCidade" @change="atualizarFiltroCidade">
-          <option value="">Todas as cidades</option>
-          <option v-for="cidade in cidadesDisponiveis" :key="cidade" :value="cidade">{{ cidade }}</option>
-        </select>
-      </div>
+  <div class="barra-de-busca">
+    <input 
+      type="text" 
+      v-model="filtroEspecialidade" 
+      @input="atualizarFiltroEspecialidade" 
+      placeholder='Buscar "Pedreiro"' 
+      class="input-busca"
+    />
+
+    <div class="seletor-estado">
+      <i class="icone-localizacao"></i>
+      <select v-model="filtroEstado" @change="atualizarFiltroEstado" class="estado-seletor">
+        <option value="">Todos os estados</option>
+        <option v-for="estado in estadosDisponiveis" :key="estado" :value="estado">{{ estado }}</option>  
+      </select>
+      <i class="icone-seta-baixo"></i>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      estadosDisponiveis: Array,
-      cidadesDisponiveis: Array,
+
+    
+    
+    <button @click="buscar" class="icone-busca">
+      <i class="icone-lupa"></i>
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    estadosDisponiveis: Array,
+  },
+  data() {
+    return {
+      filtroEspecialidade: '',
+      filtroEstado: 'MS', // Exemplo de valor padrão
+    };
+  },
+  methods: {
+    atualizarFiltroEspecialidade() {
+      this.$emit('filtro-especialidade', this.filtroEspecialidade);
     },
-    data() {
-      return {
-        filtroEspecialidade: '',
-        filtroEstado: '',
-        filtroCidade: '',
-      };
+    atualizarFiltroEstado() {
+      this.$emit('filtro-estado', this.filtroEstado);
     },
-    methods: {
-      atualizarFiltroEspecialidade() {
-        this.$emit('filtro-especialidade', this.filtroEspecialidade);
-      },
-      atualizarFiltroEstado() {
-        this.$emit('filtro-estado', this.filtroEstado);
-      },
-      atualizarFiltroCidade() {
-        this.$emit('filtro-cidade', this.filtroCidade);
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
+    buscar() {
+      // Lógica para realizar a busca
+      console.log("Buscando por:", this.filtroEspecialidade, "em", this.filtroEstado);
+    }
+  },
+};
+</script>
+<style scoped>
 .filtro-quadro {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 70%; 
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 3vw;
-  margin-left: auto; 
-  margin-right: auto; 
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  max-width: 180px;
   width: 100%;
+  margin: 20px 0;
 }
 
-.input-group label {
-  font-size: 0.9rem;
-  color: #0d47a1;
-}
-
-.input-group input,
-.input-group select {
-  padding: 8px;
-  font-size: 0.9rem;
+.barra-de-busca {
+  display: flex;
+  align-items: center;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 24px;
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.input-group input::placeholder {
+.input-busca {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.input-busca::placeholder {
   color: #aaa;
 }
 
+.seletor-estado {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 10px;
+  position: relative;
+}
+
+.icone-localizacao::before {
+  content: "\1F4CD"; /* Código unicode para o ícone de localização */
+  font-size: 1rem;
+  color: #666;
+}
+
+.estado-seletor {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 0.9rem;
+  color: #333;
+  appearance: none;
+  padding-right: 10px; /* Espaço para o ícone da seta */
+  font-weight: bold;
+}
+
+.icone-seta-baixo::before {
+  content: "\25BE"; /* Código unicode para uma seta para baixo */
+  position: absolute;
+  right: 5px;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.icone-busca {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.icone-lupa::before {
+  content: "\1F50D"; /* Código unicode para o ícone de lupa */
+  font-size: 1rem;
+  color: #666;
+}
 
 @media (max-width: 768px) {
   .filtro-quadro {
-    flex-direction: column;
-    align-items: stretch;
+    width: 90%;
+  }
+  .barra-de-busca {
+    width: 100%;
   }
 }
-
 </style>
-  
+

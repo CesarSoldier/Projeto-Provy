@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <header-component />
+    <div id="app">
+    <header-component v-if="!escondeComponente" />
     
     <main class="main-content">
       <div v-if="$route.path === '/'">
@@ -33,7 +33,14 @@ export default {
     Testimonials,
     FooterComponent,
   },
+  computed: {
+    escondeComponente(){
+      return this.$route.path === '/listadeprestadores'
+    }
+  }
 };
+
+
 </script>
 
 <style>
@@ -48,7 +55,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  color: #2c3e50;
+
   margin: 0;
   background-image: linear-gradient(#f8f8f8, #eaf2f8);
   background-size: cover;
@@ -62,7 +69,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 90px 20px 20px;
+  padding: 69px 20px 20px;
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;

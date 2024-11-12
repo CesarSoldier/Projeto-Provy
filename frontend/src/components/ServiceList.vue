@@ -1,8 +1,19 @@
 <template>
   <section id="servicos">
-    <h2 class="section-title">Para que posso usar o Provy?</h2>
-    <p class="section-description">
-      Nós oferecemos as melhores escolhas para você. Com o Provy, você pode ajustar os serviços às suas necessidades e contar com o auxílio dos melhores prestadores.
+    <div class="image-list">
+      <div class="image-content">
+        <img src="../assets/prestadordeserviço.png" alt="prestadordeserviço">
+      </div>
+      <div class="text-content">
+        <h2 class="section-title">Seu negócio pede visibilidade para vender mais</h2>
+        <p class="section-description">
+          Com o Provy, você conecta sua loja a milhões de novos clientes, expande sua área de serviço e muito mais. Utilize nossas ferramentas de marketing para aumentar a visibilidade e alcançar pessoas que necessitam dos seus serviços.
+        </p>
+      </div>
+    </div>
+
+    <p class="section-advantage">
+      Vantagens de usar o Provy
     </p>
     <div class="service-grid">
       <div class="service-card" v-for="(service, index) in services" :key="index">
@@ -31,33 +42,66 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+
+
 #servicos {
-  text-align: center;
-  padding: 70px 20px;
-  
+  padding: 80px 150px;
+  font-family: 'Mulish', sans-serif;
+}
+
+.image-list {
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  gap: 40px;
+  margin-bottom: 50px;
+  text-align: left;
+}
+
+.image-content {
+  max-width: 400px;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente a imagem */
+}
+
+.image-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 50px; /* Bordas arredondadas */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.text-content {
+  max-width: 500px;
 }
 
 .section-title {
   font-size: 2em;
   color: #2c3e50;
+  font-weight: bold;
   margin-bottom: 0.5em;
-  font-family: 'Mulish', sans-serif;
 }
 
 .section-description {
+  
   font-size: 1em;
   color: #666;
+  line-height: 1.6;
   margin-bottom: 2em;
-  line-height: 1.5;
-  font-family: 'Mulish', sans-serif;
+}
+
+.section-advantage {
+  font-size: 1.5em;
+  color: #2c3e50;
+  margin: 1.5em 0;
+  text-align: center;
 }
 
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 110px;
-  font-family: 'Mulish', sans-serif;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
 }
 
 .service-card {
@@ -65,9 +109,7 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
-  font-family: 'Mulish', sans-serif;
 }
 
 .service-card:hover {
@@ -76,15 +118,15 @@ export default {
 }
 
 .service-title {
-  
   font-size: 1.2em;
-  color: #075dad;;
+  color: #075dad;
   margin-bottom: 0.5em;
 }
 
 .service-description {
   font-size: 0.9em;
   color: #666;
-  line-height: 1.4;
+  line-height: 1.8;
 }
+
 </style>
