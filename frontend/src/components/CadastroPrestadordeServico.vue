@@ -1,8 +1,13 @@
 <template>
-  <div class="cadastro-container">
-    <div class="left-section">
-        <img class="logo-container" src="../assets/icon-provy.png" alt="">
-    </div>
+  <section class="fundo">
+    
+    <div class="cadastro-container">
+      <!-- Left Section (Decorativa) -->
+      <div class="left-section">
+        <div class="logo-container">
+          <img src="../assets/icon-provy.png" alt="Logo" width="100%" />
+        </div>
+      </div>
     <div class="right-section">
       <h2>Prestador de Serviços</h2>
       <form @submit.prevent="handleCadastro">
@@ -73,8 +78,9 @@
         <p v-if="errorMessage" class="error-message red-text">{{ errorMessage }}</p>
       </form>
       <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -182,18 +188,36 @@ export default {
 </script>
 
 <style scoped>
+
+.fundo {
+  font-family: 'Mulish', sans-serif;
+  display: block;
+  padding-top: 50px;
+
+  box-sizing: border-box;
+  
+  background-color: #ddddddf3;
+
+  width: 100vw;
+  min-height: 100vh;
+  color: #ffffff;
+  overflow: hidden;
+
+  /* Adicionando a animação de movimento */
+  animation: moveSideToSide 9s ease-in-out infinite;
+}
+
 .cadastro-container {
   display: flex;
-  width: 90vw;
-  height: 85vh; 
-  max-width: 900px; 
+  width: 90vw; /* Reduz a largura total da tela */
+  height: 82vh; /* Reduz a altura total da tela */
+  max-width: 900px; /* Limita o tamanho máximo da tela */
   margin: 0 auto;
-  border-radius: 10px;
 }
 
 .left-section {
   flex: 1;
-  background: linear-gradient(135deg, #0071bc, #3bc8f5);
+  background: linear-gradient(135deg, #064f68, #084c83);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -229,7 +253,7 @@ export default {
 .right-section {
   flex: 1;
   background-color: #ffffff;
-  padding: 1.5rem; /* Reduz o padding para ocupar menos espaço */
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,28 +263,28 @@ export default {
 
 .right-section h2 {
   color: #2980b9;
-  margin-bottom: 0.75rem; /* Reduz o espaçamento do título */
-  font-size: 1.5rem; /* Reduz o tamanho do título */
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
 }
 
 .input-group {
-  margin-bottom: 0.75rem; /* Reduz o espaçamento entre os campos */
+  margin-bottom: 0.75rem;
 }
 
 .input-group label {
   font-weight: bold;
   color: #2980b9;
-  font-size: 0.9rem; /* Reduz o tamanho da fonte das labels */
+  font-size: 0.9rem;
 }
 
 .input-group input,
 .input-group select {
   width: 100%;
-  padding: 0.6rem; /* Reduz o padding interno dos campos */
+  padding: 0.6rem;
   margin-top: 0.25rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 0.9rem; /* Reduz o tamanho da fonte dos inputs */
+  font-size: 0.9rem;
 }
 
 .btn {
