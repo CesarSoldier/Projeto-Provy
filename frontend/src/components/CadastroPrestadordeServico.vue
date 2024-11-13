@@ -184,10 +184,11 @@ export default {
 <style scoped>
 .cadastro-container {
   display: flex;
-  width: 90vw; /* Reduz a largura total da tela */
-  height: 80vh; /* Reduz a altura total da tela */
-  max-width: 900px; /* Limita o tamanho máximo da tela */
+  width: 90vw;
+  height: 85vh; 
+  max-width: 900px; 
   margin: 0 auto;
+  border-radius: 10px;
 }
 
 .left-section {
