@@ -1,7 +1,7 @@
 <template>
   <div class="cadastro-container">
     <div class="left-section">
-        <img class="logo-container" src="../assets/icon-provy.png" alt="">
+        <!-<img class="logo-container" src="../assets/icon-provy.png" alt="">
     </div>
     <div class="right-section">
       <h2>Prestador de Serviços</h2>
@@ -203,7 +203,27 @@ export default {
   width: 150px;
   height: 150px;
   padding: 1rem;
+  background-color: transparent;
+  transition: transform 0.4s ease, filter 0.4s ease;
 }
+
+.logo-container:hover {
+  animation: rotateZoom 1s ease forwards;
+  filter: brightness(1.5) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+}
+
+@keyframes rotateZoom {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
 
 .right-section {
   flex: 1;
