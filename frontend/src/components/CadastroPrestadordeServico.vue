@@ -1,7 +1,7 @@
 <template>
   <div class="cadastro-container">
     <div class="left-section">
-        <!-<img class="logo-container" src="../assets/icon-provy.png" alt="">
+        <img class="logo-container" src="../assets/icon-provy.png" alt="">
     </div>
     <div class="right-section">
       <h2>Prestador de Serviços</h2>
