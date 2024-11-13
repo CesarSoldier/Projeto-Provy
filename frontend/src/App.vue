@@ -35,7 +35,8 @@ export default {
   },
   computed: {
     escondeComponente(){
-      return this.$route.path === '/listadeprestadores'
+      return this.$route.path === '/listadeprestadores' && '/cadastrocliente'
+      
     }
   }
 };

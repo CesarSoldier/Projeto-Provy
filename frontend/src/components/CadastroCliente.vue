@@ -1,28 +1,41 @@
 <template>
-  <div class="cadastro-container">
-    <h2>Cadastro de Cliente</h2>
-    <form @submit.prevent="handleCadastro">
-      <div class="input-group">
-        <label for="nome">Nome:</label>
-        <input type="text" v-model="name" placeholder="Seu Nome" required />
+  <section class="fundo">
+    
+    <div class="cadastro-container">
+      <!-- Left Section (Decorativa) -->
+      <div class="left-section">
+        <div class="logo-container">
+          <!-- Aqui você pode colocar seu logo ou qualquer outro conteúdo que queira -->
+          <img src="../assets/icon-provy.png" alt="Logo" width="100%" />
+        </div>
       </div>
-      <div class="input-group">
-        <label for="email">Email:</label>
-        <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
+      <!-- Right Section (Formulário) -->
+      <div class="right-section">
+        <h2>Cadastrar-se</h2>
+        <form @submit.prevent="handleCadastro">
+          <div class="input-group">
+            <label for="nome">Nome:</label>
+            <input type="text" v-model="name" placeholder="Seu Nome" required />
+          </div>
+          <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
+          </div>
+          <div class="input-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" v-model="cpf" placeholder="Seu CPF" required />
+          </div>
+          <div class="input-group">
+            <label for="senha">Senha:</label>
+            <input type="password" v-model="password" placeholder="********" required />
+          </div>
+          <button type="submit" class="btn">Criar Conta</button>
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </form>
+        <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
       </div>
-      <div class="input-group">
-        <label for="cpf">CPF: </label>
-        <input type="text" v-model="cpf" placeholder="Seu CPF" required />
-      </div>
-      <div class="input-group">
-        <label for="senha">Senha:</label>
-        <input type="password" v-model="password" placeholder="********" required />
-      </div>
-      <button type="submit" class="btn">Cadastrar</button>
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-    </form>
-    <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -66,57 +79,104 @@ export default {
 </script>
 
 <style scoped>
-.input-group{
-  display: flex;
-  justify-content: space-around;
-  gap: 16px;
-  padding: 8px;
-}
-.cadastro-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
 
-.cadastro-container h2 {
-  margin-bottom: 1rem;
-  color: blue;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.fundo {
+  font-family: 'Mulish', sans-serif;
+  display: block;
+  padding-top: 50px;
+  
   box-sizing: border-box;
+  
+  background-color: #ddddddf3;
+
+  width: 100vw;
+  min-height: 100vh;
+  color: #ffffff;
+  overflow: hidden;
+
+  /* Adicionando a animação de movimento */
+  animation: moveSideToSide 9s ease-in-out infinite;
+}
+
+.cadastro-container {
+  display: flex;
+  width: 90vw; /* Reduz a largura total da tela */
+  height: 80vh; /* Reduz a altura total da tela */
+  max-width: 900px; /* Limita o tamanho máximo da tela */
+  margin: 0 auto;
+}
+
+.left-section {
+  flex: 1;
+  background: linear-gradient(135deg, #064f68, #084c83);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.logo-container {
+  width: 150px;
+  height: 150px;
+  padding: 1rem;
+}
+
+.right-section {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #333;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.right-section h2 {
+  color: #2980b9;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.input-group {
+  margin-bottom: 0.75rem;
 }
 
 .input-group label {
-  display: block;
-  margin-bottom: 0.5rem;
   font-weight: bold;
+  color: #2980b9;
+  font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
 .btn {
-  background-color: white; /* Cor de fundo do botão */
-  color: blue; /* Cor do texto */
-  border: 2px solid blue; /* Borda de 2 pixels, sólida e azul */
-  border-radius: 5px; /* Cantos arredondados */
-  padding: 10px 20px; /* Espaçamento interno */
-  font-size: 1rem; /* Tamanho da fonte */
-  font-weight: bold; /* Negrito */
-  cursor: pointer; /* Muda o cursor ao passar o mouse */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+  background-color: #2980b9;
+  color: #fff;
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
-  background-color: #2980b9; /* Muda a cor de fundo ao passar o mouse */
-  color: white; /* Muda a cor do texto ao passar o mouse */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
+  background-color: #2c3e50;
 }
 
+.error-message {
+  color: #e74c3c;
+}
 </style>

@@ -42,7 +42,7 @@ header {
   align-items: center;
   padding: 5px 60px;
   background-color: #f8f8f8;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(5, 80, 165, 0.493);
 
   gap: 150px;
   
@@ -87,7 +87,7 @@ header h1 {
 
 
 .btn {
-  background-color: white;
+  background-color: #f8f8f8;
   font-family: 'Mulish', sans-serif;
   color: black;
   border: none;
