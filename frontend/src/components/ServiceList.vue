@@ -1,12 +1,24 @@
 <template>
   <section id="servicos">
-    <h2 class="section-title">Para que posso usar o Provy?</h2>
-    <div class="carousel">
-      <div class="services" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-        <div class="service" v-for="(service, index) in services" :key="index">
-          <h3 class="service-title">{{ service.title }}</h3>
-          <p class="service-description">{{ service.description }}</p>
-        </div>
+    <div class="image-list">
+      <div class="image-content">
+        <img src="../assets/prestadordeserviço.png" alt="prestadordeserviço">
+      </div>
+      <div class="text-content">
+        <h2 class="section-title">Seu negócio pede visibilidade para vender mais</h2>
+        <p class="section-description">
+          Com o Provy, você conecta sua loja a milhões de novos clientes, expande sua área de serviço e muito mais. Utilize nossas ferramentas de marketing para aumentar a visibilidade e alcançar pessoas que necessitam dos seus serviços.
+        </p>
+      </div>
+    </div>
+
+    <p class="section-advantage">
+      Vantagens de usar o Provy
+    </p>
+    <div class="service-grid">
+      <div class="service-card" v-for="(service, index) in services" :key="index">
+        <h3 class="service-title">{{ service.title }}</h3>
+        <p class="service-description">{{ service.description }}</p>
       </div>
     </div>
   </section>
@@ -21,72 +33,100 @@ export default {
         { title: 'Otimização da busca', description: 'Te ajudamos na procura de um prestador de serviço gerais mais próximo da sua casa.' },
         { title: 'Serviços de qualidade', description: 'Filtraremos pra você os serviços mais bem avaliados para melhor desempenho.' },
         { title: 'Visibilidade Maior', description: 'Mostraremos os prestadores de serviços que são especialistas no serviço em que você precisa.' },
-      ],
-      currentIndex: 0, // Índice da caixa atual
+        { title: 'Informações detalhadas', description: 'Consulta gratuita com os nossos prestadores de confiança para melhor recomendações.' },
+        { title: 'Atendimento de emergência', description: 'Você pode obter atendimento urgente para você e sua família a qualquer momento.' },
+        { title: 'Histórico de serviços', description: 'Acompanhe e salve seu histórico de serviços com o Provy.' }
+      ]
     };
-  },
-  mounted() {
-    this.startCarousel(); // Inicia o carrossel
-  },
-  methods: {
-    startCarousel() {
-      setInterval(() => {
-        this.currentIndex = (this.currentIndex + 1) % this.services.length; // Avança para o próximo índice
-      }, 5000); 
-    },
-  },
+  }
 };
 </script>
 
+<style>
 
-<style scoped>
-.carousel {
-  width: 100%;
-  overflow: hidden; /* Oculta as partes que saem do carrossel */
-  display: flex; /* Habilita o uso de flexbox */
-  justify-content: center; /* Centraliza horizontalmente */
+
+#servicos {
+  padding: 80px 150px;
+  font-family: 'Mulish', sans-serif;
+}
+
+.image-list {
+  display: flex;
   align-items: center; /* Centraliza verticalmente */
-  height: 250px; /* Altura fixa do carrossel */
+  justify-content: center; /* Centraliza horizontalmente */
+  gap: 40px;
+  margin-bottom: 50px;
+  text-align: left;
 }
 
-.services {
+.image-content {
+  max-width: 400px;
   display: flex;
-  transition: transform 0.5s ease-in-out; /* Suaviza a transição */
+  justify-content: center; /* Centraliza horizontalmente a imagem */
 }
 
-.service {
-  flex: 0 0 100%; /* Garante que cada serviço ocupe 100% do contêiner do carrossel */
-  height: 250px; /* Altura fixa para as caixas */
-  background: #1565c0;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+.image-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 50px; /* Bordas arredondadas */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.text-content {
+  max-width: 500px;
+}
+
+.section-title {
+  font-size: 2em;
+  color: #2c3e50;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.section-description {
+  
+  font-size: 1em;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2em;
+}
+
+.section-advantage {
+  font-size: 1.5em;
+  color: #2c3e50;
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.service-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s, box-shadow 0.3s;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centraliza o conteúdo verticalmente */
-  align-items: center; /* Centraliza o conteúdo horizontalmente */
-  text-align: center; /* Centraliza o texto */
-  margin: 0; /* Remove a margem */
-  box-sizing: border-box; /* Inclui o padding e a borda na largura total */
 }
 
-
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
 
 .service-title {
-  font-size: 1.8rem;
-  color: #ffffff;
-  margin-bottom: 15px;
-  text-align: center;
+  font-size: 1.2em;
+  color: #075dad;
+  margin-bottom: 0.5em;
 }
 
 .service-description {
-  font-size: 1rem;
-  color: #f1f1f1;
-  line-height: 1.6;
-  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.8;
 }
-
 
 </style>
