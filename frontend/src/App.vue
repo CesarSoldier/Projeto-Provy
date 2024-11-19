@@ -1,12 +1,15 @@
 <template>
-    <div id="app">
+  <div id="app">
     <header-component v-if="!escondeComponente" />
     
     <main class="main-content">
       <div v-if="$route.path === '/'">
         <hero-section />
         <service-list />
-        <testimonials />
+        <!-- InfoBanner ocupando toda a largura -->
+        <info-banner />
+        <!-- FAQ ocupando toda a largura -->
+        <FaqAccordion />
       </div>
       <router-view v-else />
     </main>
@@ -15,13 +18,15 @@
   </div>
 </template>
 
+
 <script>
 document.title = 'Provy';
 
 import HeaderComponent from './components/HeaderComponent.vue';
 import HeroSection from './components/HeroSection.vue';
 import ServiceList from './components/ServiceList.vue';
-import Testimonials from './components/Testimonials.vue';
+import InfoBanner from './components/InfoBanner.vue';
+import FaqAccordion from './components/FaqAccordion.vue'; 
 import FooterComponent from './components/FooterComponent.vue';
 
 export default {
@@ -30,19 +35,18 @@ export default {
     HeaderComponent,
     HeroSection,
     ServiceList,
-    Testimonials,
+    InfoBanner,
+    FaqAccordion,
     FooterComponent,
   },
   computed: {
-    escondeComponente(){
-      return this.$route.path === '/listadeprestadores' && '/cadastrocliente'
-      
+    escondeComponente() {
+      return this.$route.path === '/listadeprestadores' && '/cadastrocliente';
     }
   }
 };
-
-
 </script>
+
 
 <style>
 body {
@@ -85,10 +89,6 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-p {
-  color: blue;
-  font-weight: bold;
-}
 
 footer-component {
   width: 100%;
