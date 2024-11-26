@@ -81,6 +81,7 @@ export default {
 
 .icone-busca {
   max-height: 39px;
+  background: white;
 }
 
 .input-busca {
@@ -129,13 +130,17 @@ export default {
 }
 
 .icone-busca {
-  background: none;
-  border: none;
+  background: white;
+  border: 1px solid #ccc;
   outline: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   margin-left: 10px;
+}
+
+.icone-busca p {
+  color: #075dad;
 }
 
 .icone-lupa::before {
