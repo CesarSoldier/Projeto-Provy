@@ -6,9 +6,7 @@
       <div v-if="$route.path === '/'">
         <hero-section />
         <service-list />
-        <!-- InfoBanner ocupando toda a largura -->
         <info-banner />
-        <!-- FAQ ocupando toda a largura -->
         <FaqAccordion />
       </div>
       <router-view v-else />

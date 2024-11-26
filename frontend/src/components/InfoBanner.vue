@@ -15,7 +15,7 @@
         <h2>Quem confia e acredita no Provy</h2>
         <p>
           “O Provy proporcionou um crescimento significativo em nossos negócios! 
-          Hoje somos referência em nossa área e muitos clientes chegam até nós 
+          <br> Hoje somos referência em nossa área e muitos clientes chegam até nós 
           graças à nossa vitrine online."
         </p>
       </div>
