@@ -40,7 +40,7 @@
   color: #ffffff;
   padding: 60px 20px;
   margin: 20px auto;
-  border-radius: 12px;
+  border-radius: 02px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 99%;
   max-width: auto;
