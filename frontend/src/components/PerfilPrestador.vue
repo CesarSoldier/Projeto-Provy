@@ -1,43 +1,58 @@
-<script>
-import axios from 'axios';
+<template>
+  <section class="perfil-container">
+    <h1>Bem-vindo, {{ prestador.name }}!</h1>
+    <div class="perfil-info">
+      <p><strong>Nome:</strong> {{ prestador.name }}</p>
+      <p><strong>Email:</strong> {{ prestador.email }}</p>
+      <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
+      <p><strong>Telefone:</strong> {{ prestador.telefone }}</p>
+      <p><strong>Endereço:</strong> {{ prestador.endereco }}, {{ prestador.bairro }}, {{ prestador.cidade }} - {{ prestador.estado }}</p>
+    </div>
+  </section>
+</template>
 
+<script>
 export default {
   data() {
     return {
-      prestador: null, // Inicializa como nulo
+      prestador: {}, // Dados do prestador de serviço
     };
   },
-  created() {
-    this.carregarPerfil();
-  },
-  methods: {
-    async carregarPerfil() {
-      try {
-        const response = await axios.get(`/provedores/${this.$route.params.id}`);
-        this.prestador = response.data; // Define os dados do prestador
-      } catch (error) {
-        console.error('Erro ao carregar perfil:', error);
-      }
-    },
+  mounted() {
+    // Obtendo os dados passados via router
+    if (this.$route.params.prestador) {
+      this.prestador = this.$route.params.prestador;
+    } else {
+      // Redirecionar para login caso os dados não estejam disponíveis
+      this.$router.push('/login');
+    }
   },
 };
 </script>
 
-<template>
-  <div v-if="prestador" class="perfil-prestador">
-    <h1>Perfil do Prestador</h1>
-    <p><strong>Nome:</strong> {{ prestador.name }}</p>
-    <p><strong>Email:</strong> {{ prestador.email }}</p>
-    <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
-    <p><strong>Telefone:</strong> {{ prestador.telefone }}</p>
-    <p><strong>Endereço:</strong> {{ prestador.endereco }}, {{ prestador.bairro }}, {{ prestador.cidade }} - {{ prestador.estado }}, CEP: {{ prestador.cep }}</p>
-    <div class="descricao">
-      <label>Descrição dos Serviços:</label>
-      <textarea v-model="prestador.descricaoServicos"></textarea>
-    </div>
-    <button @click="atualizarDescricao">Salvar Descrição</button>
-  </div>
-  <div v-else>
-    <p>Carregando...</p>
-  </div>
-</template>
+<style scoped>
+.perfil-container {
+  font-family: 'Mulish', sans-serif;
+  padding: 2rem;
+  background-color: #f4f4f4;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-info {
+  text-align: left;
+  margin-top: 1.5rem;
+}
+
+.perfil-info p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+h1 {
+  color: #2980b9;
+}
+</style>

@@ -85,6 +85,7 @@
 
 <script>
 import axios from 'axios';
+import { userState } from '../userState';
 
 export default {
   data() {
@@ -165,6 +166,9 @@ export default {
     });
 
     console.log('Usuário cadastrado:', response.data);
+
+    // Atualizar o estado global
+    userState.loggedUser = response.data;
 
     // Redirecionar para a tela de perfil
     this.$router.push({

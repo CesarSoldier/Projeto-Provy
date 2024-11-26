@@ -1,3 +1,7 @@
+import mongoose from 'mongoose';
+
+import mongoose from 'mongoose';
+
 const provedorSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -10,7 +14,6 @@ const provedorSchema = new mongoose.Schema({
     cidade: { type: String, required: true },
     estado: { type: String, required: true },
     cep: { type: String, required: true },
-    descricaoServicos: { type: String, default: '' }, // Campo opcional
 });
 
 export default mongoose.model('Provedor', provedorSchema);

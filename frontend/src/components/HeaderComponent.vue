@@ -17,16 +17,26 @@
           <router-link to="/cadastroprestador">Cadastro de Prestador</router-link>
         </div>
       </div>
-      <router-link to="/login">
+      <router-link to="/login" v-if="!userState.loggedUser">
         <button class="btn">Faça o login</button>
+      </router-link>
+      <router-link to="/perfil" v-if="userState.loggedUser">
+        <button class="btn">Perfil</button>
       </router-link>
     </div>
   </header>
 </template>
 
 <script>
+import { userState } from '../userState';
+
 export default {
   name: 'HeaderComponent',
+  setup() {
+    return {
+      userState,
+    };
+  },
 };
 </script>
 

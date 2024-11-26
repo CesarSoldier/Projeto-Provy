@@ -126,23 +126,6 @@ app.get('/provedores', async (req, res) => {
     }
 });
 
-app.get('/provedores/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const provedor = await Provedor.findById(id);
-
-        if (!provedor) {
-            return res.status(404).json({ message: 'Prestador não encontrado' });
-        }
-
-        res.status(200).json(provedor);
-    } catch (error) {
-        res.status(500).json({ message: 'Erro ao buscar prestador', error });
-    }
-});
-
-
-
 
 // Conectar ao banco de dados e iniciar servidor
 mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
