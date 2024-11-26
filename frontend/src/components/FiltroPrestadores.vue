@@ -1,13 +1,17 @@
 <template>
   <div class="barra-de-busca">
-    <input 
-      type="text" 
-      v-model="filtroEspecialidade" 
-      @input="atualizarFiltroEspecialidade" 
-      placeholder='Buscar "Pedreiro"' 
-      class="input-busca"
-    />
-
+    <div class="profissao">
+      
+      <i class="icone-lupa"></i>
+      <input 
+        type="text" 
+        v-model="filtroEspecialidade" 
+        @input="atualizarFiltroEspecialidade" 
+        placeholder=' Buscar "Pedreiro"' 
+        class="input-busca"
+      />
+    </div>
+    
     <div class="seletor-estado">
       <i class="icone-localizacao"></i>
       <select v-model="filtroEstado" @change="atualizarFiltroEstado" class="estado-seletor">
@@ -17,11 +21,11 @@
       <i class="icone-seta-baixo"></i>
     </div>
 
-    
-    
     <button @click="buscar" class="icone-busca">
-      <i class="icone-lupa"></i>
+        <p>Buscar</p>
     </button>
+    
+    
   </div>
 </template>
 
@@ -61,6 +65,10 @@ export default {
 
 .barra-de-busca {
   display: flex;
+}
+
+.profissao, .seletor-estado, .icone-busca {
+  display: flex;
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 24px;
@@ -69,6 +77,10 @@ export default {
   max-width: 500px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icone-busca {
+  max-height: 39px;
 }
 
 .input-busca {
