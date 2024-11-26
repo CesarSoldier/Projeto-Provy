@@ -140,36 +140,54 @@ export default {
       this.etapa = 1;
     },
     async handleCadastro() {
-      if (!this.especialidade || !this.telefone || !this.endereco || !this.bairro || 
-          !this.cidade || !this.estado || !this.cep) {
-        this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
-        return;
-      }
-      try {
-        this.errorMessage = '';
-        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
+  if (!this.especialidade || !this.telefone || !this.endereco || !this.bairro || 
+      !this.cidade || !this.estado || !this.cep) {
+    this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
+    return;
+  }
 
-        const response = await axios.post(`${backendUrl}/registerprovedors`, {
-          name: this.name,
-          email: this.email,
-          cpf: this.cpf,
-          password: this.password,
-          especialidade: this.especialidade,
-          telefone: this.telefone,
-          endereco: this.endereco,
-          bairro: this.bairro,
-          cidade: this.cidade,
-          estado: this.estado,
-          cep: this.cep,
-        });
+  try {
+    this.errorMessage = '';
+    let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
 
-        console.log('Usuário cadastrado:', response.data);
-        this.$router.push('/login');
-      } catch (error) {
-        this.errorMessage = error.response?.data?.message || 'Erro ao cadastrar usuário';
-        console.error('Erro ao cadastrar usuário:', this.errorMessage);
-      }
-    },
+    const response = await axios.post(`${backendUrl}/registerprovedors`, {
+      name: this.name,
+      email: this.email,
+      cpf: this.cpf,
+      password: this.password,
+      especialidade: this.especialidade,
+      telefone: this.telefone,
+      endereco: this.endereco,
+      bairro: this.bairro,
+      cidade: this.cidade,
+      estado: this.estado,
+      cep: this.cep,
+    });
+
+    console.log('Usuário cadastrado:', response.data);
+
+    // Redirecionar para a tela de perfil
+    this.$router.push({
+      path: '/perfil',
+      query: {
+        name: response.data.name,
+        email: response.data.email,
+        especialidade: response.data.especialidade,
+        telefone: response.data.telefone,
+        endereco: response.data.endereco,
+        bairro: response.data.bairro,
+        cidade: response.data.cidade,
+        estado: response.data.estado,
+      },
+    });
+  } catch (error) {
+    this.errorMessage = error.response?.data?.message || 'Erro ao cadastrar usuário';
+    console.error('Erro ao cadastrar usuário:', this.errorMessage);
+  }
+}
+
+
+
   },
   watch: {
     cep(value) {

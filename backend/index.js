@@ -83,29 +83,17 @@ app.post('/login', async (req, res) => {
 // Endpoint para cadastro de prestadores de serviço
 app.post('/registerprovedors', async (req, res) => {
     try {
-        console.log("Dados recebidos:", req.body); // Log para verificar os dados recebidos
-
-        const { name, email, cpf, password, especialidade, telefone, endereco, bairro, cidade, estado, cep } = req.body;
+        const { 
+            name, email, cpf, password, especialidade, telefone, 
+            endereco, bairro, cidade, estado, cep, descricaoServicos 
+        } = req.body;
 
         if (!name || !email || !cpf || !password || !especialidade || !telefone || !endereco || !bairro || !cidade || !estado || !cep) {
             return res.status(400).json({ message: 'Dados faltando' });
         }
 
-        // Verifica se o e-mail ou CPF já existe
-        const existingEmail = await Provedor.findOne({ email });
-        const existingCpf = await Provedor.findOne({ cpf });
-
-        if (existingEmail) {
-            return res.status(400).json({ message: 'E-mail já cadastrado' });
-        }
-        if (existingCpf) {
-            return res.status(400).json({ message: 'CPF já cadastrado' });
-        }
-
-        // Criptografa a senha
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Criação do novo provedor
         const newProvedor = new Provedor({
             name,
             email,
@@ -118,17 +106,13 @@ app.post('/registerprovedors', async (req, res) => {
             cidade,
             estado,
             cep,
+            descricaoServicos: descricaoServicos || '', // Adicione a descrição ou mantenha vazia
         });
 
-        // Verifique os dados antes de salvar
-        console.log("Novo Provedor a ser salvo:", newProvedor);
-
-        // Salvando no banco
         await newProvedor.save();
         res.status(201).json(newProvedor);
     } catch (error) {
-        console.error("Erro ao criar prestador:", error);
-        res.status(500).json({ message: 'Erro ao criar usuário', error });
+        res.status(500).json({ message: 'Erro ao criar prestador', error });
     }
 });
 
@@ -141,6 +125,24 @@ app.get('/provedores', async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar provedores' });
     }
 });
+
+app.get('/provedores/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const provedor = await Provedor.findById(id);
+
+        if (!provedor) {
+            return res.status(404).json({ message: 'Prestador não encontrado' });
+        }
+
+        res.status(200).json(provedor);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar prestador', error });
+    }
+});
+
+
+
 
 // Conectar ao banco de dados e iniciar servidor
 mongoose.connect("mongodb+srv://kaua:25042003@cluster0.mkv18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
