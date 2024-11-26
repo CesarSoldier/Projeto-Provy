@@ -13,8 +13,8 @@
       <div class="dropdown">
         <button class="btn">Cadastro</button>
         <div class="dropdown-content">
-          <router-link to="/cadastrocliente">Cadastro de Cliente</router-link>
-          <router-link to="/cadastroprestador">Cadastro de Prestador</router-link>
+          <router-link to="/cadastrocliente">Cliente</router-link>
+          <router-link to="/cadastroprestador">Prestador</router-link>
         </div>
       </div>
       <router-link to="/login">
