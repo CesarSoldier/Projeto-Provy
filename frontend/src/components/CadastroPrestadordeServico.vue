@@ -86,6 +86,7 @@
 <script>
 import Inputmask from 'inputmask';
 import { nextTick } from 'vue';
+import axios from 'axios';
 
 export default {
   data() {
