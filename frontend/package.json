@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
+    "inputmask": "^5.0.9",
     "vue": "^3.4.29",
     "vue-router": "^4.4.3"
   },

@@ -1,6 +1,6 @@
 <template>
   <section class="fundo">
-    
+
     <div class="cadastro-container">
       <!-- Left Section (Decorativa) -->
       <div class="left-section">
@@ -8,83 +8,84 @@
           <img src="../assets/icon-provy.png" alt="Logo" width="100%" />
         </div>
       </div>
-    <div class="right-section">
-      <h2>Prestador de Serviços</h2>
-      <form @submit.prevent="handleCadastro">
-        <!-- Primeira etapa do formulário -->
-        <div v-if="etapa === 1">
-          <div class="input-group">
-            <label for="nome">Nome:</label>
-            <input type="text" v-model="name" placeholder="Seu Nome" required />
-          </div>
-          <div class="input-group">
-            <label for="email">Email:</label>
-            <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
-          </div>
-          <div class="input-group">
+      <div class="right-section">
+        <h2>Prestador de Serviços</h2>
+        <form @submit.prevent="handleCadastro">
+          <!-- Primeira etapa do formulário -->
+          <div v-if="etapa === 1">
+            <div class="input-group">
+              <label for="nome">Nome:</label>
+              <input type="text" v-model="name" placeholder="Seu Nome" required />
+            </div>
+            <div class="input-group">
+              <label for="email">Email:</label>
+              <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
+            </div>
+            <div class="input-group">
             <label for="cpf">CPF:</label>
-            <input type="text" v-model="cpf" placeholder="Seu CPF" required />
+            <input type="text" v-model="cpf" placeholder="Seu CPF" required ref="cpfInput" />
+            </div>
+            <div class="input-group">
+              <label for="senha">Senha:</label>
+              <input type="password" v-model="password" placeholder="********" required />
+            </div>
+            <div class="input-group">
+              <label for="confirmarSenha">Confirmar Senha:</label>
+              <input type="password" v-model="confirmarSenha" placeholder="********" required />
+            </div>
+            <button type="button" class="btn" @click="proximaEtapa">Continuar Cadastro</button>
           </div>
-          <div class="input-group">
-            <label for="senha">Senha:</label>
-            <input type="password" v-model="password" placeholder="********" required />
-          </div>
-          <div class="input-group">
-            <label for="confirmarSenha">Confirmar Senha:</label>
-            <input type="password" v-model="confirmarSenha" placeholder="********" required />
-          </div>
-          <button type="button" class="btn" @click="proximaEtapa">Continuar Cadastro</button>
-        </div>
-        
-         <!-- Segunda etapa do formulário -->
-         <div v-else-if="etapa === 2">
-          <div class="input-group">
-            <label for="especialidade">Informe sua especialidade:</label>
-            <select v-model="especialidade" required>
-              <option disabled value="">Selecione sua especialidade</option>
-              <option v-for="especialidade in especialidades" :key="especialidade" :value="especialidade">
-                {{ especialidade }}
-              </option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label for="telefone">Telefone:</label>
-            <input type="tel" v-model="telefone" placeholder="(xx) xxxxx-xxxx" required />
-          </div>
-          <div class="input-group">
-            <label for="cep">CEP:</label>
-            <input type="text" v-model="cep" placeholder="Seu CEP" required />
-          </div>
-          <div class="input-group">
-            <label for="endereco">Endereço:</label>
-            <input type="text" v-model="endereco" placeholder="Seu endereço completo" required />
-          </div>
-          <div class="input-group">
-            <label for="bairro">Bairro:</label>
-            <input type="text" v-model="bairro" placeholder="Seu bairro" required />
-          </div>
-          <div class="input-group">
-            <label for="cidade">Cidade:</label>
-            <input type="text" v-model="cidade" placeholder="Sua cidade" required />
-          </div>
-          <div class="input-group">
-            <label for="estado">Estado:</label>
-            <input type="text" v-model="estado" placeholder="Seu estado" required />
-          </div>
-          <button type="button" class="btn" @click="voltarEtapa">Voltar</button>
-          <button type="submit" class="btn">Cadastrar</button>
-        </div>
 
-        <p v-if="errorMessage" class="error-message red-text">{{ errorMessage }}</p>
-      </form>
-      <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
+          <!-- Segunda etapa do formulário -->
+          <div v-else-if="etapa === 2">
+            <div class="input-group">
+              <label for="especialidade">Informe sua especialidade:</label>
+              <select v-model="especialidade" required>
+                <option disabled value="">Selecione sua especialidade</option>
+                <option v-for="especialidade in especialidades" :key="especialidade" :value="especialidade">
+                  {{ especialidade }}
+                </option>
+              </select>
+            </div>
+            <div class="input-group">
+            <label for="telefone">Telefone:</label>
+            <input type="text" v-model="telefone" placeholder="(55) (XX) XXXXX-XXXX" required ref="telefoneInput" />
+          </div>
+            <div class="input-group">
+              <label for="cep">CEP:</label>
+              <input type="text" v-model="cep" placeholder="Seu CEP" required />
+            </div>
+            <div class="input-group">
+              <label for="endereco">Endereço:</label>
+              <input type="text" v-model="endereco" placeholder="Seu endereço completo" required />
+            </div>
+            <div class="input-group">
+              <label for="bairro">Bairro:</label>
+              <input type="text" v-model="bairro" placeholder="Seu bairro" required />
+            </div>
+            <div class="input-group">
+              <label for="cidade">Cidade:</label>
+              <input type="text" v-model="cidade" placeholder="Sua cidade" required />
+            </div>
+            <div class="input-group">
+              <label for="estado">Estado:</label>
+              <input type="text" v-model="estado" placeholder="Seu estado" required />
+            </div>
+            <button type="button" class="btn" @click="voltarEtapa">Voltar</button>
+            <button type="submit" class="btn">Cadastrar</button>
+          </div>
+
+          <p v-if="errorMessage" class="error-message red-text">{{ errorMessage }}</p>
+        </form>
+        <p>Já possui uma conta? <router-link to="/login">Faça login</router-link></p>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import axios from 'axios';
+import Inputmask from 'inputmask';
+import { nextTick } from 'vue';
 
 export default {
   data() {
@@ -108,7 +109,7 @@ export default {
   },
   methods: {
     async buscarEndereco() {
-      if (this.cep.length === 8) { 
+      if (this.cep.length === 8) {
         try {
           const response = await axios.get(`https://viacep.com.br/ws/${this.cep}/json/`);
           if (response.data.erro) {
@@ -140,8 +141,8 @@ export default {
       this.etapa = 1;
     },
     async handleCadastro() {
-      if (!this.especialidade || !this.telefone || !this.endereco || !this.bairro || 
-          !this.cidade || !this.estado || !this.cep) {
+      if (!this.especialidade || !this.telefone || !this.endereco || !this.bairro ||
+        !this.cidade || !this.estado || !this.cep) {
         this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
         return;
       }
@@ -170,6 +171,25 @@ export default {
         console.error('Erro ao cadastrar usuário:', this.errorMessage);
       }
     },
+    aplicarMascara() {
+      nextTick(() => {
+        const cpfInput = this.$refs.cpfInput;
+        const telefoneInput = this.$refs.telefoneInput;
+
+        if (cpfInput) {
+          const cpfMask = new Inputmask('999.999.999-99');
+          cpfMask.mask(cpfInput);
+        }
+
+        if (telefoneInput) {
+          const phoneMask = new Inputmask('(55) (99) 9 9999-9999');
+    phoneMask.mask(this.$refs.telefone);
+        }
+      });
+    },
+  },
+  mounted() {
+    this.aplicarMascara();
   },
   watch: {
     cep(value) {
@@ -185,9 +205,18 @@ export default {
     }
   }
 };
+
 </script>
 
 <style scoped>
+.input-group input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
 
 .fundo {
   font-family: 'Mulish', sans-serif;
@@ -195,7 +224,7 @@ export default {
   padding-top: 50px;
 
   box-sizing: border-box;
-  
+
   background-color: #ddddddf3;
 
   width: 100vw;
@@ -209,9 +238,12 @@ export default {
 
 .cadastro-container {
   display: flex;
-  width: 90vw; /* Reduz a largura total da tela */
-  height: 82vh; /* Reduz a altura total da tela */
-  max-width: 900px; /* Limita o tamanho máximo da tela */
+  width: 90vw;
+  /* Reduz a largura total da tela */
+  height: 82vh;
+  /* Reduz a altura total da tela */
+  max-width: 900px;
+  /* Limita o tamanho máximo da tela */
   margin: 0 auto;
 }
 
@@ -241,9 +273,11 @@ export default {
   0% {
     transform: scale(1) rotate(0deg);
   }
+
   50% {
     transform: scale(1.1) rotate(180deg);
   }
+
   100% {
     transform: scale(1) rotate(360deg);
   }
@@ -290,9 +324,11 @@ export default {
 .btn {
   background-color: #2980b9;
   color: #fff;
-  padding: 0.6rem; /* Reduz o padding dos botões */
+  padding: 0.6rem;
+  /* Reduz o padding dos botões */
   width: 100%;
-  font-size: 0.9rem; /* Reduz o tamanho da fonte dos botões */
+  font-size: 0.9rem;
+  /* Reduz o tamanho da fonte dos botões */
   font-weight: bold;
   border: none;
   border-radius: 4px;
