@@ -241,7 +241,7 @@ export default {
   display: flex;
   width: 90vw;
   /* Reduz a largura total da tela */
-  height: 82vh;
+  height: 115vh;
   /* Reduz a altura total da tela */
   max-width: 900px;
   /* Limita o tamanho máximo da tela */
