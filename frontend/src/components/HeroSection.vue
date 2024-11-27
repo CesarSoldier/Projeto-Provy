@@ -16,7 +16,7 @@
       <label for="email">E-mail</label>
       <input type="email" id="email" placeholder="nome@email.com">
       <button class="cta-button">Cadastrar agora</button>
-      <p class="disclaimer">Ao continuar, você concorda em receber comunicações do iFood. Confira nossa <a href="#">Declaração de Privacidade</a>.</p>
+      <p class="disclaimer">Ao continuar, você concorda em receber comunicações do Provy. Confira nossa <a href="#">Declaração de Privacidade</a>.</p>
     </div>
 
     <div class="blue-strip"></div> <!-- Faixa azul abaixo do conteúdo -->

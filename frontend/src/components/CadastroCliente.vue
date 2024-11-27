@@ -1,6 +1,5 @@
 <template>
   <section class="fundo">
-    
     <div class="cadastro-container">
       <!-- Left Section (Decorativa) -->
       <div class="left-section">
@@ -16,18 +15,27 @@
             <label for="nome">Nome:</label>
             <input type="text" v-model="name" placeholder="Seu Nome" required />
           </div>
+
           <div class="input-group">
             <label for="email">Email:</label>
             <input type="email" v-model="email" placeholder="exemplo@gmail.com" required />
           </div>
+
           <div class="input-group">
             <label for="cpf">CPF:</label>
-            <input type="text" v-model="cpf" placeholder="Seu CPF" required />
+            <input type="text" ref="cpf" v-model="cpf" placeholder="Seu CPF" required />
           </div>
+
+          <div class="input-group">
+            <label for="telefone">Telefone:</label>
+            <input type="text" ref="telefone" v-model="telefone" placeholder="(DDD) 9 0000-0000" required />
+          </div>
+
           <div class="input-group">
             <label for="senha">Senha:</label>
             <input type="password" v-model="password" placeholder="********" required />
           </div>
+          
           <button type="submit" class="btn">Criar Conta</button>
           <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
         </form>
@@ -38,6 +46,7 @@
 </template>
 
 <script>
+import Inputmask from 'inputmask';
 import axios from 'axios';
 
 export default {
@@ -46,27 +55,37 @@ export default {
       name: '',
       email: '',
       cpf: '',
+      telefone: '',
       password: '',
       errorMessage: '',
     };
   },
+  mounted() {
+    // Aplicar o Inputmask aos campos de CPF e Telefone
+    const cpfMask = new Inputmask('999.999.999-99');
+    cpfMask.mask(this.$refs.cpf);
+
+    const phoneMask = new Inputmask('(55) (99) 9 9999-9999');
+    phoneMask.mask(this.$refs.telefone);
+  },
   methods: {
     async handleCadastro() {
+      this.errorMessage = '';
+      let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+      if (!backendUrl) {
+        backendUrl = process.env.VITE_APP_BACKEND_URL;
+      }
+      
       try {
-        this.errorMessage = '';
-        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
-        if(!backendUrl) {
-          backendUrl = process.env.VITE_APP_BACKEND_URL;
-        }
-        
         const response = await axios.post(`${backendUrl}/register`, {
           name: this.name,
           email: this.email,
           cpf: this.cpf,
+          telefone: this.telefone,
           password: this.password,
         });
-        console.log('Usuário cadastrado:', response.data);
 
+        console.log('Usuário cadastrado:', response.data);
         this.$router.push('/login');
       } catch (error) {
         this.errorMessage = error.response.data.message || 'Erro ao cadastrar usuário';
@@ -78,7 +97,6 @@ export default {
 </script>
 
 <style scoped>
-
 .fundo {
   font-family: 'Mulish', sans-serif;
   display: block;
