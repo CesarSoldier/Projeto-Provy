@@ -8,46 +8,40 @@
       </router-link>
       <h1>Provy</h1>
       <div class="filtros-container">
-        <FiltroPrestadores
-          :estadosDisponiveis="estadosDisponiveis"
-          :cidadesDisponiveis="cidadesDisponiveis"
-          @filtro-especialidade="atualizarFiltroEspecialidade"
-          @filtro-estado="atualizarFiltroEstado"
-          @filtro-cidade="atualizarFiltroCidade"
-        />
+        <FiltroPrestadores :estadosDisponiveis="estadosDisponiveis" :cidadesDisponiveis="cidadesDisponiveis"
+          @filtro-especialidade="atualizarFiltroEspecialidade" @filtro-estado="atualizarFiltroEstado"
+          @filtro-cidade="atualizarFiltroCidade" />
       </div>
     </div>
-    
 
     <div class="header-right">
-      
+    <div class="dropdown">
+      <button class="btn">Cadastro</button>
+      <div class="dropdown-content">
+        <router-link to="/cadastrocliente">Cliente</router-link>
+        <router-link to="/cadastroprestador">Prestador</router-link>
+      </div>
     </div>
+  </div>
+
   </header>
-  
+
   <div class="Prestadores">
     <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
 
 
-      <!-- Lista de prestadores -->
-      <div class="cards-container">
-        <div
-          v-for="prestador in prestadoresFiltrados"
-          :key="prestador._id"
-          class="card"
-          @click="abrirModal(prestador)"
-        >
-          <h3>{{ prestador.name }}</h3>
-          <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
-        </div>
+    <!-- Lista de prestadores -->
+    <div class="cards-container">
+      <div v-for="prestador in prestadoresFiltrados" :key="prestador._id" class="card" @click="abrirModal(prestador)">
+        <h3>{{ prestador.name }}</h3>
+        <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
       </div>
- 
+    </div>
+
 
     <!-- Modal para exibir detalhes do prestador -->
-    <PrestadorModal
-      :isVisible="mostrarModal"
-      :prestadorSelecionado="prestadorSelecionado"
-      @close="mostrarModal = false"
-    />
+    <PrestadorModal :isVisible="mostrarModal" :prestadorSelecionado="prestadorSelecionado"
+      @close="mostrarModal = false" />
   </div>
 </template>
 
@@ -84,6 +78,11 @@ export default {
     },
   },
   methods: {
+    logout() {
+      localStorage.removeItem('authToken');  // Remove o token de autenticação
+      localStorage.removeItem('tipoUsuario');  // Remove o tipo de usuário
+      this.$router.push('/login');  // Redireciona para a página de login
+    },
     async buscarPrestadores() {
       try {
         let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
@@ -123,10 +122,13 @@ export default {
       this.mostrarModal = true;
     },
   },
+
   mounted() {
     this.buscarPrestadores();
   },
-};
+
+}
+
 </script>
 
 <style scoped>
@@ -152,12 +154,46 @@ body {
   align-items: center;
   margin: 20px auto;
   padding: 25px;
-  padding-top: 50px; 
+  padding-top: 50px;
   background: linear-gradient(135deg, #e3f2fd, #bbdefb);
   border-radius: 20px;
   max-width: 1200px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  min-height: 600px; 
+  min-height: 600px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f8f8f8;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px 0;
+  z-index: 1;
+  min-width: 200px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 
@@ -167,7 +203,7 @@ body {
   width: 100%;
 }
 
-.filtros-container{
+.filtros-container {
   display: flex;
   padding: 20px;
 }
@@ -219,6 +255,7 @@ body {
     max-width: 350px;
   }
 }
+
 header {
   position: fixed;
   top: 0;
@@ -233,7 +270,7 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   gap: 150px;
-  
+
 
 }
 
@@ -247,7 +284,7 @@ header {
 .logo {
   height: 50px;
   margin-right: 10px;
-  
+
 }
 
 .btnLogo {
@@ -267,7 +304,7 @@ header h1 {
 }
 
 .header-right {
- padding-right: 90px;
+  padding-right: 90px;
   gap: 5px;
   margin-right: 10px;
 
@@ -289,11 +326,11 @@ header h1 {
 }
 
 .btn:hover {
-  
+
   transform: translateY(-3px);
 
 
-  
+
 }
 
 
@@ -314,5 +351,5 @@ header h1 {
     text-align: center;
     align-items: center;
   }
-} 
+}
 </style>

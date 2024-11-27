@@ -38,7 +38,7 @@ export default {
   padding: 80px 40px;
   box-sizing: border-box;
   position: relative;
-  background-image: url('../assets/home_maintence.png');
+  background-image: url('../assets/happy-mechanic-working.jpg');
   background-size: cover;
   background-position: center;
   width: 100vw;

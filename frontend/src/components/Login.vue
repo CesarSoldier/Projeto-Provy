@@ -30,25 +30,43 @@ export default {
     async handleLogin() {
       try {
         let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
-        if(!backendUrl) {
+        if (!backendUrl) {
           backendUrl = process.env.VITE_APP_BACKEND_URL;
         }
 
+        // Enviar os dados para o backend para autenticação
         const response = await axios.post(`${backendUrl}/login`, {
           email: this.email,
           password: this.password,
         });
+
         console.log('Login bem-sucedido:', response.data);
 
+        // Armazenar o token e o tipo de usuário no localStorage
         localStorage.setItem('authToken', response.data.token);
-        this.$router.push('/success');
+        localStorage.setItem('tipoUsuario', response.data.tipoUsuario);
+
+        // Configurar o token para requisições subsequentes
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+        // Redirecionar conforme o tipo de usuário
+        if (response.data.tipoUsuario === 'prestador') {
+          this.$router.push('/pagina-prestador'); // Página para o Prestador
+        } else if (response.data.tipoUsuario === 'cliente') {
+          this.$router.push('/pagina-cliente'); // Página para o Cliente
+        }
       } catch (error) {
-        console.error('Erro ao fazer login:', error.response.data.message);
+        console.error('Erro ao fazer login:', error.response ? error.response.data.message : error.message);
       }
     },
   },
 };
 </script>
+
+<style scoped>
+/* Estilos para o login permanecem os mesmos */
+</style>
+
 
 <style scoped>
 /* Estilos específicos para a página de login */
