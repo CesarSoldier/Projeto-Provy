@@ -1,4 +1,5 @@
 <template>
+  <!-- Cabeçalho -->
   <header class="buscas">
     <div class="header-left">
       <router-link to="/">
@@ -8,46 +9,71 @@
       </router-link>
       <h1>Provy</h1>
       <div class="filtros-container">
-        <FiltroPrestadores :estadosDisponiveis="estadosDisponiveis" :cidadesDisponiveis="cidadesDisponiveis"
-          @filtro-especialidade="atualizarFiltroEspecialidade" @filtro-estado="atualizarFiltroEstado"
-          @filtro-cidade="atualizarFiltroCidade" />
+        <FiltroPrestadores
+            :estadosDisponiveis="estadosDisponiveis"
+            :cidadesDisponiveis="cidadesDisponiveis"
+            @filtro-especialidade="atualizarFiltroEspecialidade"
+            @filtro-estado="atualizarFiltroEstado"
+            @filtro-cidade="atualizarFiltroCidade"
+        />
       </div>
     </div>
 
     <div class="header-right">
-    <div class="dropdown">
-      <button class="btn">Cadastro</button>
-      <div class="dropdown-content">
-        <router-link to="/cadastrocliente">Cliente</router-link>
-        <router-link to="/cadastroprestador">Prestador</router-link>
+      <div class="dropdown">
+        <button class="btn">Cadastro</button>
+        <div class="dropdown-content">
+          <router-link to="/cadastrocliente">Cliente</router-link>
+          <router-link to="/cadastroprestador">Prestador</router-link>
+        </div>
       </div>
     </div>
-  </div>
-
   </header>
 
+  <!-- Lista de Prestadores -->
   <div class="Prestadores">
     <h2 class="title-centralizada">Lista de Prestadores Disponíveis</h2>
 
-
-    <!-- Lista de prestadores -->
+    <!-- Lista de prestadores paginados -->
     <div class="cards-container">
-      <div v-for="prestador in prestadoresFiltrados" :key="prestador._id" class="card" @click="abrirModal(prestador)">
+      <div
+          v-for="prestador in prestadoresPaginados"
+          :key="prestador._id"
+          class="card"
+          @click="abrirModal(prestador)"
+      >
         <h3>{{ prestador.name }}</h3>
         <p><strong>Especialidade:</strong> {{ prestador.especialidade }}</p>
       </div>
     </div>
 
+    <!-- Controles de paginação -->
+    <div class="paginacao">
+      <button class="btn" :disabled="paginaAtual === 1" @click="paginaAnterior">
+        Anterior
+      </button>
+      <span> Página {{ paginaAtual }} de {{ totalPaginas }} </span>
+      <button
+          class="btn"
+          :disabled="paginaAtual === totalPaginas"
+          @click="proximaPagina"
+      >
+        Próximo
+      </button>
+    </div>
 
     <!-- Modal para exibir detalhes do prestador -->
-    <PrestadorModal :isVisible="mostrarModal" :prestadorSelecionado="prestadorSelecionado"
-      @close="mostrarModal = false" />
+    <PrestadorModal
+        :isVisible="mostrarModal"
+        :prestadorSelecionado="prestadorSelecionado"
+        @close="mostrarModal = false"
+    />
   </div>
 </template>
 
 <script>
-import FiltroPrestadores from './FiltroPrestadores.vue';
-import PrestadorModal from './PrestadorModal.vue';
+import FiltroPrestadores from "./FiltroPrestadores.vue";
+import PrestadorModal from "./PrestadorModal.vue";
 
 export default {
   components: {
@@ -57,78 +83,112 @@ export default {
   data() {
     return {
       prestadores: [],
-      filtroEspecialidade: '',
-      filtroEstado: '',
-      filtroCidade: '',
+      filtroEspecialidade: "",
+      filtroEstado: "",
+      filtroCidade: "",
       estadosDisponiveis: [],
       cidadesDisponiveis: [],
       mostrarModal: false,
       prestadorSelecionado: null,
+      // Paginação
+      itemsPorPagina: 6, // Número de itens por página
+      paginaAtual: 1, // Página inicial
     };
   },
   computed: {
+    // Filtra os prestadores com base nos critérios de filtro
     prestadoresFiltrados() {
-      return this.prestadores.filter(prestador => {
+      return this.prestadores.filter((prestador) => {
         return (
-          (this.filtroEspecialidade === '' || prestador.especialidade.toLowerCase().includes(this.filtroEspecialidade.toLowerCase())) &&
-          (this.filtroEstado === '' || prestador.estado === this.filtroEstado) &&
-          (this.filtroCidade === '' || prestador.cidade === this.filtroCidade)
+            (this.filtroEspecialidade === "" ||
+                prestador.especialidade
+                    .toLowerCase()
+                    .includes(this.filtroEspecialidade.toLowerCase())) &&
+            (this.filtroEstado === "" || prestador.estado === this.filtroEstado) &&
+            (this.filtroCidade === "" || prestador.cidade === this.filtroCidade)
         );
       });
     },
+    // Exibe apenas parte da lista (relativa à página atual)
+    prestadoresPaginados() {
+      const inicio = (this.paginaAtual - 1) * this.itemsPorPagina;
+      const fim = inicio + this.itemsPorPagina;
+      return this.prestadoresFiltrados.slice(inicio, fim);
+    },
+    // Calcula o total de páginas necessárias
+    totalPaginas() {
+      return Math.ceil(this.prestadoresFiltrados.length / this.itemsPorPagina);
+    },
   },
   methods: {
-    logout() {
-      localStorage.removeItem('authToken');  // Remove o token de autenticação
-      localStorage.removeItem('tipoUsuario');  // Remove o tipo de usuário
-      this.$router.push('/login');  // Redireciona para a página de login
+    // Muda para uma página específica
+    mudarPagina(novaPagina) {
+      this.paginaAtual = novaPagina;
     },
+    // Página anterior
+    paginaAnterior() {
+      if (this.paginaAtual > 1) {
+        this.paginaAtual--;
+      }
+    },
+    // Próxima página
+    proximaPagina() {
+      if (this.paginaAtual < this.totalPaginas) {
+        this.paginaAtual++;
+      }
+    },
+    // Abre o modal ao clicar no prestador
+    abrirModal(prestador) {
+      this.prestadorSelecionado = prestador;
+      this.mostrarModal = true;
+    },
+    // Busca prestadores do backend
     async buscarPrestadores() {
       try {
-        let backendUrl = import.meta.env.VITE_APP_BACKEND_URL || process.env.VITE_APP_BACKEND_URL;
+        let backendUrl =
+            import.meta.env.VITE_APP_BACKEND_URL ||
+            process.env.VITE_APP_BACKEND_URL;
         const response = await fetch(`${backendUrl}/provedores`);
         this.prestadores = await response.json();
 
         this.atualizarFiltros();
       } catch (error) {
-        console.error('Erro ao buscar prestadores:', error);
+        console.error("Erro ao buscar prestadores:", error);
       }
     },
     atualizarFiltros() {
-      const estados = new Set(this.prestadores.map(p => p.estado));
+      const estados = new Set(this.prestadores.map((p) => p.estado));
       this.estadosDisponiveis = Array.from(estados);
       this.atualizarCidadesDisponiveis();
     },
     atualizarCidadesDisponiveis() {
       const cidades = new Set(
-        this.prestadores
-          .filter(p => this.filtroEstado === '' || p.estado === this.filtroEstado)
-          .map(p => p.cidade)
+          this.prestadores
+              .filter(
+                  (p) => this.filtroEstado === "" || p.estado === this.filtroEstado
+              )
+              .map((p) => p.cidade)
       );
       this.cidadesDisponiveis = Array.from(cidades);
     },
     atualizarFiltroEspecialidade(novoFiltro) {
       this.filtroEspecialidade = novoFiltro;
+      this.paginaAtual = 1; // Reseta para a primeira página
     },
     atualizarFiltroEstado(novoFiltro) {
       this.filtroEstado = novoFiltro;
+      this.paginaAtual = 1; // Reseta para a primeira página
       this.atualizarCidadesDisponiveis();
     },
     atualizarFiltroCidade(novoFiltro) {
       this.filtroCidade = novoFiltro;
-    },
-    abrirModal(prestador) {
-      this.prestadorSelecionado = prestador;
-      this.mostrarModal = true;
+      this.paginaAtual = 1; // Reseta para a primeira página
     },
   },
-
   mounted() {
     this.buscarPrestadores();
   },
-
-}
-
+};
 </script>
 
 <style scoped>
@@ -351,5 +411,28 @@ header h1 {
     text-align: center;
     align-items: center;
   }
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.paginacao .btn {
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.paginacao .btn:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
 }
 </style>

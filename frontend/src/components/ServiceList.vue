@@ -48,6 +48,11 @@ export default {
 #servicos {
   padding: 80px 150px;
   font-family: 'Mulish', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 .image-list {
@@ -102,6 +107,9 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
+  justify-items: center;
+  justify-content: center;
+  width: 80%;
 }
 
 .service-card {
